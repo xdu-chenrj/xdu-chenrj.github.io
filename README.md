@@ -1,2 +1,2 @@
 # xdu-chenrj.github.io
-blog
+个人博客
