@@ -18,4 +18,109 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>leetcode第331场周赛</title>
+    <url>/2022/09/19/leetcode%E7%AC%AC331%E5%9C%BA%E5%91%A8%E8%B5%9B/</url>
+    <content><![CDATA[<h2 id="最小偶倍数"><a href="#最小偶倍数" class="headerlink" title="最小偶倍数"></a>最小偶倍数</h2><p>给你一个正整数 <code>n</code> ，返回 <code>2</code> 和 <code>n</code> 的最小公倍数（正整数）。</p>
+<p>示例 1：</p>
+<blockquote>
+<p>输入：n &#x3D; 5<br>输出：10<br>解释：5 和 2 的最小公倍数是 10 。</p>
+</blockquote>
+<p>示例 2：</p>
+<blockquote>
+<p>输入：n &#x3D; 6<br>输出：6<br>解释：6 和 2 的最小公倍数是 6 。注意数字会是它自身的倍数。</p>
+</blockquote>
+<p>提示</p>
+<blockquote>
+<p>1 &lt;&#x3D; n &lt;&#x3D; 150</p>
+</blockquote>
+<p>直接gcd就可以，但是有一个数是2是确定的，这个2比较特殊。所以有另一种写法。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">gcd</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> y == <span class="number">0</span> ? x : <span class="built_in">gcd</span>(y, x % y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">smallestEvenMultiple</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n * <span class="number">2</span> / <span class="built_in">gcd</span>(<span class="number">2</span>, n); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">smallestEvenMultiple</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n % <span class="number">2</span>) <span class="keyword">return</span> n * <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="最长的字母序连续字符串的长度"><a href="#最长的字母序连续字符串的长度" class="headerlink" title="最长的字母序连续字符串的长度"></a>最长的字母序连续字符串的长度</h2><p><strong>字母序连续字符串</strong> 是由字母表中连续字母组成的字符串。换句话说，字符串</p>
+<blockquote>
+<p>“abcdefghijklmnopqrstuvwxyz”</p>
+</blockquote>
+<p>的任意字符串都是<strong>字母序连续字符串</strong> 。</p>
+<ul>
+<li>例如，”abc” 是一个字母序连续字符串，而 “acb” 和 “za” 不是。</li>
+<li>给你一个仅由小写英文字母组成的字符串 s ，返回其 最长 的 字母序连续子字符串 的长度。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “abacaba”<br>输出：2<br>解释：共有 4 个不同的字母序连续子字符串 “a”、”b”、”c” 和 “ab” 。<br>“ab” 是最长的字母序连续子字符串。</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p>输入：s &#x3D; “abcde”<br>输出：5<br>解释：”abcde” 是最长的字母序连续子字符串。</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 105</code></li>
+<li><code>s</code> 由小写英文字母组成</li>
+</ul>
+<p>直接比较一下就行</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestContinuousSubstring</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> mxlen = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] - s[i - <span class="number">1</span>] == <span class="number">1</span>) &#123;</span><br><span class="line">                mxlen++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans = <span class="built_in">max</span>(ans, mxlen);</span><br><span class="line">                mxlen = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(ans, mxlen);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="翻转二叉树的奇数层"><a href="#翻转二叉树的奇数层" class="headerlink" title="翻转二叉树的奇数层"></a>翻转二叉树的奇数层</h2><p>给你一棵<strong>完美</strong>二叉树的根节点 root ，请你反转这棵树中每个<strong>奇数</strong>层的节点值。</p>
+<ul>
+<li>例如，假设第 3 层的节点值是 [2,1,3,4,7,11,29,18] ，那么反转后它应该变成 [18,29,11,7,4,3,1,2] 。<br>  反转后，返回树的根节点。</li>
+</ul>
+<p><strong>完美</strong>二叉树需满足：二叉树的所有父节点都有两个子节点，且所有叶子节点都在同一层。</p>
+<p>节点的<strong>层数</strong>等于该节点到根节点之间的边数。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2022/07/28/first_case1.png" alt="img"></p>
+<blockquote>
+<p>输入：root &#x3D; [2,3,5,8,13,21,34]<br>输出：[2,5,3,8,13,21,34]<br>解释：<br>这棵树只有一个奇数层。<br>在第 1 层的节点分别是 3、5 ，反转后为 5、3 。</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2022/07/28/second_case3.png" alt="img"></p>
+<blockquote>
+<p>输入：root &#x3D; [7,13,11]<br>输出：[7,11,13]<br>解释：<br>在第 1 层的节点分别是 13、11 ，反转后为 11、13 。 </p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<ul>
+<li>树中的节点数目在范围 <code>[1, 214]</code> 内</li>
+<li><code>0 &lt;= Node.val &lt;= 105</code></li>
+<li><code>root</code> 是一棵 <strong>完美</strong> 二叉树</li>
+</ul>
+<p><strong>DFS</strong>，搜的时候把当前深度传进去，如果当前深度是基数，交换两个节点的val。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(TreeNode* left, TreeNode* right, <span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!left) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(d % <span class="number">2</span>) <span class="built_in">swap</span>(left-&gt;val, right-&gt;val);</span><br><span class="line">        <span class="built_in">dfs</span>(left-&gt;left, right-&gt;right, d + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">dfs</span>(left-&gt;right, right-&gt;left, d + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">reverseOddLevels</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root-&gt;left, root-&gt;right, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="字符串的前缀分数和"><a href="#字符串的前缀分数和" class="headerlink" title="字符串的前缀分数和"></a>字符串的前缀分数和</h2><p>给你一个长度为 n 的数组 words ，该数组由<strong>非空</strong>字符串组成。</p>
+<p>定义字符串 word 的<strong>分数</strong>等于以 word 作为 前缀 的 words[i] 的数目。</p>
+<ul>
+<li>例如，如果 words &#x3D; [“a”, “ab”, “abc”, “cab”] ，那么 “ab” 的分数是 2 ，因为 “ab” 是 “ab” 和 “abc” 的一个前缀。</li>
+</ul>
+<p>返回一个长度为 n 的数组 answer ，其中 answer[i] 是 words[i] 的每个非空前缀的分数 总和 。</p>
+<p><strong>注意</strong>：字符串视作它自身的一个前缀。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p>输入：words &#x3D; [“abc”,”ab”,”bc”,”b”]<br>输出：[5,4,3,2]<br>解释：对应每个字符串的答案如下：</p>
+<p>“abc” 有 3 个前缀：”a”、”ab” 和 “abc” 。</p>
+<p>2 个字符串的前缀为 “a” ，2 个字符串的前缀为 “ab” ，1 个字符串的前缀为 “abc” 。<br>总计 answer[0] &#x3D; 2 + 2 + 1 &#x3D; 5 。</p>
+<p>“ab” 有 2 个前缀：”a” 和 “ab” 。</p>
+<p>2 个字符串的前缀为 “a” ，2 个字符串的前缀为 “ab” 。<br>总计 answer[1] &#x3D; 2 + 2 &#x3D; 4 。</p>
+<p>“bc” 有 2 个前缀：”b” 和 “bc” 。</p>
+<p>2 个字符串的前缀为 “b” ，1 个字符串的前缀为 “bc” 。<br>总计 answer[2] &#x3D; 2 + 1 &#x3D; 3 。</p>
+<p>“b” 有 1 个前缀：”b”。</p>
+<p>2 个字符串的前缀为 “b” 。<br>总计 answer[3] &#x3D; 2 。</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p>输入：words &#x3D; [“abcd”]<br>输出：[4]<br>解释：<br>“abcd” 有 4 个前缀 “a”、”ab”、”abc” 和 “abcd”。<br>每个前缀的分数都是 1 ，总计 answer[0] &#x3D; 1 + 1 + 1 + 1 &#x3D; 4 。</p>
+</blockquote>
+<p>建<strong>Trie</strong>，统计。 </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> tr[N][<span class="number">26</span>], cnt[N], idx;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(string&amp; word)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> p = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; word.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="type">int</span> u = word[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(!tr[p][u]) &#123;</span><br><span class="line">                tr[p][u] = ++idx;</span><br><span class="line">            &#125;</span><br><span class="line">            p = tr[p][u];</span><br><span class="line">            cnt[p]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(string&amp; word)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> p = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; word.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="type">int</span> u = word[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            p = tr[p][u];</span><br><span class="line">            res += cnt[p];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sumPrefixScores</span><span class="params">(vector&lt;string&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        idx = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">memset</span>(tr, <span class="number">0</span> , <span class="keyword">sizeof</span> tr);</span><br><span class="line">        <span class="built_in">memset</span>(cnt, <span class="number">0</span>, <span class="keyword">sizeof</span> cnt);</span><br><span class="line">        <span class="keyword">for</span>(string&amp; word : words) &#123;</span><br><span class="line">            <span class="built_in">insert</span>(word);</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(string&amp; word : words) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(<span class="built_in">query</span>(word));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Trie</tag>
+        <tag>Binary tree</tag>
+        <tag>Number Theory</tag>
+      </tags>
+  </entry>
 </search>
