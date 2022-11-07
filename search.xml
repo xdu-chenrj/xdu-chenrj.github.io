@@ -485,4 +485,29 @@
 
 ]]></content>
   </entry>
+  <entry>
+    <title>家谱树</title>
+    <url>/2022/11/07/%E5%AE%B6%E8%B0%B1%E6%A0%91/</url>
+    <content><![CDATA[<p>有个人的家族很大，辈分关系很混乱，请你帮整理一下这种关系。</p>
+<p>给出每个人的孩子的信息。</p>
+<p>输出一个序列，使得每个人的孩子都比那个人后列出。</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第 1 行一个整数 n ，表示家族的人数；</p>
+<p>接下来 n 行，第 i 行描述第 i 个人的孩子；</p>
+<p>每行最后是 0 表示描述完毕。</p>
+<p>每个人的编号从 1 到 n。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出一个序列，使得每个人的孩子都比那个人后列出；</p>
+<p>数据保证一定有解，如果有多解输出任意一解。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>1 &lt;&#x3D; n &lt;&#x3D; 100</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">0</span><br><span class="line">4 5 1 0</span><br><span class="line">1 0</span><br><span class="line">5 3 0</span><br><span class="line">3 0</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2 4 5 3 1</span><br></pre></td></tr></table></figure>
+
+<h4 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h4><p>邻接表存图，先把入度为0的点进队列，然后不断的取出队列的头结点，每次将头结点的所连的节点的入度减一，如果所连节点的度数减少为0，则将此节点进入队列，直到队列为空。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">105</span>, M = N * N / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> h[N], e[M], ne[M], idx;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> d[N], q[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    e[idx] = y, ne[idx] = h[x], h[x] = idx++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">topsort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> hh = <span class="number">0</span>, tt = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!d[i]) q[++tt] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (hh &lt;= tt) &#123;</span><br><span class="line">        <span class="type">int</span> x = q[hh++];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = h[x]; ~i; i = ne[i]) &#123;</span><br><span class="line">            <span class="type">int</span> y = e[i];</span><br><span class="line">            <span class="keyword">if</span> (--d[y] == <span class="number">0</span>) q[++tt] = y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="built_in">memset</span>(h, <span class="number">-1</span>, <span class="keyword">sizeof</span> h);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> son;</span><br><span class="line">        <span class="keyword">while</span> (cin &gt;&gt; son, son) &#123;</span><br><span class="line">            <span class="built_in">add</span>(i, son);</span><br><span class="line">            d[son]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">topsort</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cout &lt;&lt; q[i] &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
 </search>
