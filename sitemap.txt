@@ -1,3 +1,4 @@
+http://example.com/2022/11/08/%E6%BB%91%E9%9B%AA%E8%BD%A6/
 http://example.com/2022/11/07/%E5%AE%B6%E8%B0%B1%E6%A0%91/
 http://example.com/2022/10/02/leetcode%E7%AC%AC313%E5%9C%BA%E5%91%A8%E8%B5%9B/
 http://example.com/2022/10/02/%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%81%94%E4%B8%93%E5%9C%BA%E7%AB%9E%E8%B5%9B%EF%BC%882023%E5%B1%8A%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%93%E5%9C%BA%EF%BC%89/
@@ -9,3 +10,4 @@ http://example.com/tags/Trie/
 http://example.com/tags/Binary-tree/
 http://example.com/tags/Number-Theory/
 http://example.com/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/
+http://example.com/tags/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF/

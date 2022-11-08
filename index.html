@@ -178,6 +178,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/08/%E6%BB%91%E9%9B%AA%E8%BD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/08/%E6%BB%91%E9%9B%AA%E8%BD%A6/" class="post-title-link" itemprop="url">滑雪车</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-08 22:44:06 / 修改时间：23:12:58" itemprop="dateCreated datePublished" datetime="2022-11-08T22:44:06+08:00">2022-11-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>随着白天越来越短夜晚越来越长，我们不得不考虑铲雪问题了。</p>
+<p>整个城市所有的道路都是双向车道,道路的两个方向均需要铲雪。因为城市预算的削减，整个城市只有 1 辆铲雪车。</p>
+<p>铲雪车只能把它开过的地方（车道）的雪铲干净，无论哪儿有雪，铲雪车都得从停放的地方出发，游历整个城市的街道。</p>
+<p>现在的问题是：最少要花多少时间去铲掉所有道路上的雪呢？</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>输入数据的第$1$行表示铲雪车的停放坐标$(x,y)$，$x$，$y$为整数，单位为米。</p>
+<p>下面最多有$4000$行，每行给出了一条街道的起点坐标和终点坐标，坐标均为整数，所有街道都是笔直的，且都是双向车道。</p>
+<p>铲雪车可以在任意交叉口、或任何街道的末尾任意转向，包括转$U$型弯。</p>
+<p>铲雪车铲雪时前进速度为 $20$千米&#x2F;时，不铲雪时前进速度为$50$千米&#x2F;时。</p>
+<p>保证：铲雪车从起点一定可以到达任何街道。</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>输出铲掉所有街道上的雪并且返回出发点的最短时间，精确到分钟，四舍五入到整数。</p>
+<p>输出格式为$hours:minutes$，$minutes$不足两位数时需要补前导零。<br>具体格式参照样例。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>$−10^6\leq x, y≤10^6$<br>所有位置坐标绝对值不超过 $10^6$</p>
+<h4 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 0</span><br><span class="line">0 0 10000 10000</span><br><span class="line">5000 -10000 5000 10000</span><br><span class="line">5000 10000 10000 10000</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3:55</span><br></pre></td></tr></table></figure>
+
+<h4 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h4><p>输出结果表示共需3小时55分钟。</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>这个题貌似很复杂，其实可以发现每条路都是双向通路，所以存在欧拉回路，意味着我们可以选择任意一点作为起始点，不重不漏的走完所有的边再回到起点，然后反向再走一遍就可以打扫完所有的积雪。</p>
+<p>可以发现$50$千米&#x2F;小时的速度用不上，$50$千米&#x2F;小时的速度必须是行驶在一条没有雪的边上才可以达到的，意味着这条边已经来回走了一遍。但是我们从起点走到起点，再从起点反着走到起点就已经把所有的道路积雪清理完毕，自始至终都是以$20$千米&#x2F;小时的速度前进。</p>
+<p>故求出所有边的长度 * $2$ 就是行驶距离，然后再进行小时和分钟的计算。</p>
+<p>有向图中<strong>欧拉回路</strong>存在的充要条件是所有点的出度等于入度。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">double</span> x1, y1, x2, y2;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lf %lf&quot;</span>, &amp;x1, &amp;y1);</span><br><span class="line">    </span><br><span class="line">    <span class="type">double</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%lf %lf %lf %lf&quot;</span>, &amp;x1, &amp;y1, &amp;x2, &amp;y2)) &#123;</span><br><span class="line">        <span class="type">double</span> dx = x1 - x2;</span><br><span class="line">        <span class="type">double</span> dy = y1 - y2;</span><br><span class="line">        sum += <span class="built_in">sqrt</span>(dx * dx + dy * dy) * <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> minutes = <span class="built_in">round</span>(sum / <span class="number">1000</span> / <span class="number">20</span> * <span class="number">60</span>);</span><br><span class="line">    <span class="type">int</span> hours = minutes / <span class="number">60</span>;</span><br><span class="line">    minutes %= <span class="number">60</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d:%02d\n&quot;</span>, hours, minutes);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/07/%E5%AE%B6%E8%B0%B1%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1059,12 +1140,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
