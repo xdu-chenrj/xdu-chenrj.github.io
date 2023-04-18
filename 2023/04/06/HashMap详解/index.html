@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="向大佬学习orz">
-<meta property="og:type" content="website">
-<meta property="og:title" content="chenrj的博客">
-<meta property="og:url" content="http://example.com/tags/Binary-tree/index.html">
+  <meta name="description" content="HashMap的底层结构jdk1.7中，HashMap是由数组加链表组成的，数组是主体，链表主要是为了解决hash冲突。 jdk1.8中，HashMap是由数组、链表加红黑树组成。当链表过长，则会严重影响HashMap的性能，红黑树的查询时间复杂度O(log n)，而链表的查询时间复杂度为O(n)。1.8中，链表和红黑树在达到一定条件会自动进行转换：  当链表长度达到8时，且数据总量&gt;&#x3D;64">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap详解">
+<meta property="og:url" content="http://example.com/2023/04/06/HashMap%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="chenrj的博客">
-<meta property="og:description" content="向大佬学习orz">
+<meta property="og:description" content="HashMap的底层结构jdk1.7中，HashMap是由数组加链表组成的，数组是主体，链表主要是为了解决hash冲突。 jdk1.8中，HashMap是由数组、链表加红黑树组成。当链表过长，则会严重影响HashMap的性能，红黑树的查询时间复杂度O(log n)，而链表的查询时间复杂度为O(n)。1.8中，链表和红黑树在达到一定条件会自动进行转换：  当链表长度达到8时，且数据总量&gt;&#x3D;64">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-06T14:00:48.000Z">
+<meta property="article:modified_time" content="2023-04-06T15:22:18.538Z">
 <meta property="article:author" content="chenrj">
+<meta property="article:tag" content="HashMap">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/Binary-tree/">
+<link rel="canonical" href="http://example.com/2023/04/06/HashMap%E8%AF%A6%E8%A7%A3/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: Binary tree | chenrj的博客</title>
+  <title>HashMap详解 | chenrj的博客</title>
   
 
 
@@ -172,51 +175,105 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Binary tree
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/HashMap%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HashMap详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-04-06 22:00:48 / 修改时间：23:22:18" itemprop="dateCreated datePublished" datetime="2023-04-06T22:00:48+08:00">2023-04-06</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <h3 id="HashMap的底层结构"><a href="#HashMap的底层结构" class="headerlink" title="HashMap的底层结构"></a>HashMap的底层结构</h3><p>jdk1.7中，HashMap是由数组加链表组成的，数组是主体，链表主要是为了解决hash冲突。</p>
+<p>jdk1.8中，HashMap是由数组、链表加红黑树组成。当链表过长，则会严重影响HashMap的性能，红黑树的查询时间复杂度O(log n)，而链表的查询时间复杂度为O(n)。1.8中，链表和红黑树在达到一定条件会自动进行转换：</p>
+<ul>
+<li>当链表长度达到8时，且数据总量<code>&gt;=</code>64会转红黑树</li>
+<li>当链表长度达到8时，数据总量<code>&lt;</code>64会直接扩容</li>
+</ul>
+<h3 id="HashMap的线程安全性"><a href="#HashMap的线程安全性" class="headerlink" title="HashMap的线程安全性"></a>HashMap的线程安全性</h3><h3 id="HashMap的key索引计算"><a href="#HashMap的key索引计算" class="headerlink" title="HashMap的key索引计算"></a>HashMap的key索引计算</h3><h3 id="HashMap的put操作"><a href="#HashMap的put操作" class="headerlink" title="HashMap的put操作"></a>HashMap的put操作</h3><h3 id="HashMap的get操作"><a href="#HashMap的get操作" class="headerlink" title="HashMap的get操作"></a>HashMap的get操作</h3><h3 id="HashMap的扩容机制"><a href="#HashMap的扩容机制" class="headerlink" title="HashMap的扩容机制"></a>HashMap的扩容机制</h3><h3 id="HashMap的冲突解决"><a href="#HashMap的冲突解决" class="headerlink" title="HashMap的冲突解决"></a>HashMap的冲突解决</h3><p>解决Hash冲突的办法有：</p>
+<ul>
+<li>开放地址法:</li>
+<li>拉链法：使用链表等数据结构将哈希冲突的键值对连接在一起，当出现冲突时，将新的键值对插入到该位置对应的料表中。<ul>
+<li>再哈希法：当哈希冲突发生时，选择另一个哈希函数来计算新哈希值，直到找到没有冲突的索引下标。需要设计多种哈希函数。</li>
+</ul>
+</li>
+<li>建立公共溢出区：</li>
+</ul>
+<h3 id="HashMap的默认加载因子"><a href="#HashMap的默认加载因子" class="headerlink" title="HashMap的默认加载因子"></a>HashMap的默认加载因子</h3><h3 id="HashMap的Key类型选择"><a href="#HashMap的Key类型选择" class="headerlink" title="HashMap的Key类型选择"></a>HashMap的Key类型选择</h3><h3 id="HashMap为什么不直接用红黑树，而是先用链表再转红黑树"><a href="#HashMap为什么不直接用红黑树，而是先用链表再转红黑树" class="headerlink" title="HashMap为什么不直接用红黑树，而是先用链表再转红黑树"></a>HashMap为什么不直接用红黑树，而是先用链表再转红黑树</h3><h3 id="HashMap的长度为什么是2的幂次方"><a href="#HashMap的长度为什么是2的幂次方" class="headerlink" title="HashMap的长度为什么是2的幂次方"></a>HashMap的长度为什么是2的幂次方</h3><p>​	</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-19T11:53:59+08:00"
-              content="2022-09-19">
-          09-19
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/HashMap/" rel="tag"># HashMap</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/19/leetcode%E7%AC%AC311%E5%9C%BA%E5%91%A8%E8%B5%9B/" itemprop="url">
-            <span itemprop="name">leetcode第331场周赛</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/01/%E6%90%AD%E9%85%8D%E8%B4%AD%E4%B9%B0/" rel="prev" title="搭配购买">
+      <i class="fa fa-chevron-left"></i> 搭配购买
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/04/18/Java%E4%B8%AD%E7%9A%84%E9%94%81/" rel="next" title="Java中的锁">
+      Java中的锁 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -269,6 +326,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">HashMap的底层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">HashMap的线程安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84key%E7%B4%A2%E5%BC%95%E8%AE%A1%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">HashMap的key索引计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84put%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">HashMap的put操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84get%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">HashMap的get操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6"><span class="nav-number">6.</span> <span class="nav-text">HashMap的扩容机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3"><span class="nav-number">7.</span> <span class="nav-text">HashMap的冲突解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84%E9%BB%98%E8%AE%A4%E5%8A%A0%E8%BD%BD%E5%9B%A0%E5%AD%90"><span class="nav-number">8.</span> <span class="nav-text">HashMap的默认加载因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84Key%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">9.</span> <span class="nav-text">HashMap的Key类型选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E7%94%A8%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%8C%E8%80%8C%E6%98%AF%E5%85%88%E7%94%A8%E9%93%BE%E8%A1%A8%E5%86%8D%E8%BD%AC%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">10.</span> <span class="nav-text">HashMap为什么不直接用红黑树，而是先用链表再转红黑树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E7%9A%84%E9%95%BF%E5%BA%A6%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF2%E7%9A%84%E5%B9%82%E6%AC%A1%E6%96%B9"><span class="nav-number">11.</span> <span class="nav-text">HashMap的长度为什么是2的幂次方</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
