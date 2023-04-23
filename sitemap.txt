@@ -1,3 +1,7 @@
+http://example.com/2023/04/23/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/
+http://example.com/2023/04/23/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/
+http://example.com/2023/04/23/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8CMS%E5%92%8CG1%E7%9A%84%E5%8C%BA%E5%88%AB/
+http://example.com/2023/04/23/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/
 http://example.com/2023/04/19/IOC/
 http://example.com/2023/04/18/Java%E4%B8%AD%E7%9A%84%E9%94%81/
 http://example.com/categories/index.html
