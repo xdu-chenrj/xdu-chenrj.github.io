@@ -97,7 +97,9 @@
     <url>/2023/04/29/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
     <content><![CDATA[]]></content>
       <categories>
-        <category>池化技术，Java，线程</category>
+        <category>池化技术</category>
+        <category>Java</category>
+        <category>线程</category>
       </categories>
       <tags>
         <tag>Java线程池</tag>
@@ -109,8 +111,8 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>Mysql事务</title>
-    <url>/2023/04/26/Mysql%E4%BA%8B%E5%8A%A1/</url>
+    <title>Mysql日志</title>
+    <url>/2023/04/26/Mysql%E6%97%A5%E5%BF%97/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -119,8 +121,18 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>Mysql日志</title>
-    <url>/2023/04/26/Mysql%E6%97%A5%E5%BF%97/</url>
+    <title>Mysql索引</title>
+    <url>/2023/04/26/Mysql%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Mysql事务</title>
+    <url>/2023/04/26/Mysql%E4%BA%8B%E5%8A%A1/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Mysql锁</title>
+    <url>/2023/04/26/Mysql%E9%94%81/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -129,18 +141,8 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>Mysql索引</title>
-    <url>/2023/04/26/Mysql%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>Mysql索引失效问题</title>
     <url>/2023/05/01/Mysql%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>Mysql锁</title>
-    <url>/2023/04/26/Mysql%E9%94%81/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -547,18 +549,13 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>redis主从复制</title>
-    <url>/2023/04/30/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>redis内存淘汰策略</title>
     <url>/2023/04/30/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>redis持久化机制</title>
-    <url>/2023/04/29/redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/</url>
+    <title>redis主从复制</title>
+    <url>/2023/04/30/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -567,13 +564,18 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>redis数据结构</title>
-    <url>/2023/04/28/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <title>redis持久化机制</title>
+    <url>/2023/04/29/redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>redis的AOF、RDB</title>
     <url>/2023/04/30/redis%E7%9A%84AOF%E3%80%81RDB/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>redis数据结构</title>
+    <url>/2023/04/28/redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -584,6 +586,11 @@
   <entry>
     <title>一致性哈希算法</title>
     <url>/2023/04/25/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>分布式Raft算法</title>
+    <url>/2023/04/28/%E5%88%86%E5%B8%83%E5%BC%8FRaft%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -751,11 +758,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>分布式Raft算法</title>
-    <url>/2023/04/28/%E5%88%86%E5%B8%83%E5%BC%8FRaft%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>动态代理和静态代理</title>
     <url>/2023/04/29/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%92%8C%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/</url>
     <content><![CDATA[]]></content>
@@ -796,6 +798,11 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
+    <title>数据库和缓存如何保证一致性</title>
+    <url>/2023/04/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E7%BC%93%E5%AD%98%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>搭配购买</title>
     <url>/2023/02/01/%E6%90%AD%E9%85%8D%E8%B4%AD%E4%B9%B0/</url>
     <content><![CDATA[<h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>Joe觉得云朵很美，决定去山上的商店买一些云朵。</p>
@@ -814,16 +821,6 @@
       <tags>
         <tag>并查集、01背包</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>数据库和缓存如何保证一致性</title>
-    <url>/2023/04/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E7%BC%93%E5%AD%98%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E8%87%B4%E6%80%A7/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>类加载器</title>
-    <url>/2023/04/23/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>滑雪车</title>
@@ -857,13 +854,18 @@
       </tags>
   </entry>
   <entry>
-    <title>红黑树</title>
-    <url>/2023/04/28/%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
+    <title>类加载器</title>
+    <url>/2023/04/23/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>缓存雪崩、缓存击穿、缓存穿透</title>
     <url>/2023/04/30/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E3%80%81%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>红黑树</title>
+    <url>/2023/04/28/%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
