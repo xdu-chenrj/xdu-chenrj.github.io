@@ -1,3 +1,4 @@
+http://example.com/2023/05/02/Dubbo-SPI/
 http://example.com/2023/05/01/ping%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/
 http://example.com/2023/05/01/Mysql%E7%9A%84Buffer-Pool/
 http://example.com/2023/05/01/Mysql%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/
