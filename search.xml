@@ -734,6 +734,14 @@
     <title>Java线程池</title>
     <url>/2023/04/29/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>池化技术</category>
+        <category>Java</category>
+        <category>线程</category>
+      </categories>
+      <tags>
+        <tag>Java线程池</tag>
+      </tags>
   </entry>
   <entry>
     <title>LFU</title>
