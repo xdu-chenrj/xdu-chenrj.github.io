@@ -109,7 +109,37 @@
   <entry>
     <title>LFU</title>
     <url>/2023/04/29/LFU/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h3 id="LFU算法原理"><a href="#LFU算法原理" class="headerlink" title="LFU算法原理"></a>LFU算法原理</h3><p><code>LFU</code>的全称是<code>least frequently used</code>，中文翻译为最不经常使用，是<code>redis</code>内存淘汰机制之一，当<code>redis</code>内存不够用时，会淘汰<strong>最不经常使用</strong>的数据，如果有相同最少使用次数的数据，便会应用<code>LRU</code>算法（全称是<code>least recently used</code>，中文名为<strong>最近最少使用</strong>），淘汰最近最少使用的数据，即<strong>最近使用时间靠前的数据</strong>。</p>
+<p>我们可以使用一个<code>Node</code>结构体来存储一个数据的所有数据，包括<code>key</code>，<code>value</code>，<code>time</code>，<code>cnt</code>等。</p>
+<p><code>time</code>表示数据最后一次被使用的时间，<code>cnt</code>表示数据被使用的次数。</p>
+<p>并对结构体重载了小于号，方便每次在有序集合<code>set</code>里都能以<code>O(1)</code>的时间淘汰数据。</p>
+<p>使用<code>map</code>来存储<code>key</code>对应的<code>Node</code>，用有序集合<code>set</code>存储所有的数据。</p>
+<ul>
+<li><p>初始化</p>
+<p>  初始化的时候，<code>set</code>和<code>map</code>都清空，<code>time</code>全局变量置为<code>0</code>，全局变量<code>capacity</code>初始化成传进来的值</p>
+</li>
+<li><p><code>get</code>操作</p>
+<p>  如果容量为容量为<code>0</code>，则返回<code>-1</code></p>
+<p>  在<code>hash</code>表中查看是否存在<code>key</code>，如果有，取出<code>hash</code>表对应的<code>value</code>数据，然后更新的其时间和使用次数，然后重新在<code>set</code>集合中插入更新后的数据，在重新插入之前需要删除旧数据。</p>
+</li>
+<li><p><code>put</code>操作</p>
+<p>  如果容量为<code>0</code>，无法插入</p>
+<p>  如果插入前<code>hash</code>表中存在<code>key</code>则需要更新操作，与<code>get</code>操作类似</p>
+<p>  如果插入前<code>hash</code>表中不存在<code>key</code>则需要先判断<code>hash</code>表的容量是否已经达到了最大容量，如果达到了则首先需要删除数据，需要删除<code>set</code>集合的头数据，以及<code>hash</code>表中<code>set</code>集合的头数据的<code>key</code></p>
+</li>
+</ul>
+<h3 id="C-算法实现"><a href="#C-算法实现" class="headerlink" title="C++算法实现"></a>C++算法实现</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="type">int</span> time, cnt;</span><br><span class="line">    <span class="type">int</span> key, value;</span><br><span class="line">    <span class="built_in">Node</span>()&#123;&#125;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="type">int</span> _cnt, <span class="type">int</span> _time, <span class="type">int</span> _key, <span class="type">int</span> _value):<span class="built_in">cnt</span>(_cnt), <span class="built_in">time</span>(_time), <span class="built_in">key</span>(_key), <span class="built_in">value</span>(_value)&#123;&#125;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span> &lt; (<span class="type">const</span> Node&amp; y) <span class="type">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> cnt == y.cnt ? time &lt; y.time : cnt &lt; y.cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LFUCache</span> &#123;</span><br><span class="line">    <span class="type">int</span> capacity, time;</span><br><span class="line">    set&lt;Node&gt; S;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, Node&gt; hash;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">LFUCache</span>(<span class="type">int</span> _capacity) &#123;</span><br><span class="line">        capacity = _capacity;</span><br><span class="line">        S.<span class="built_in">clear</span>();</span><br><span class="line">        hash.<span class="built_in">clear</span>();  </span><br><span class="line">        time = <span class="number">0</span>;     </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(capacity == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">auto</span> it = hash.<span class="built_in">find</span>(key);</span><br><span class="line">        <span class="keyword">if</span>(it == hash.<span class="built_in">end</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        Node node = it-&gt;second;</span><br><span class="line">        S.<span class="built_in">erase</span>(node);</span><br><span class="line">        node.cnt += <span class="number">1</span>;</span><br><span class="line">        node.time = ++time;</span><br><span class="line">        S.<span class="built_in">insert</span>(node);</span><br><span class="line">        it-&gt;second = node;</span><br><span class="line">        <span class="keyword">return</span> node.value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(capacity == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">auto</span> it = hash.<span class="built_in">find</span>(key);</span><br><span class="line">        <span class="keyword">if</span>(it == hash.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(capacity == hash.<span class="built_in">size</span>()) &#123;</span><br><span class="line">                hash.<span class="built_in">erase</span>(S.<span class="built_in">begin</span>() -&gt; key);</span><br><span class="line">                S.<span class="built_in">erase</span>(S.<span class="built_in">begin</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            Node node = <span class="built_in">Node</span>(<span class="number">1</span>, ++time, key, value);</span><br><span class="line">            hash[key] = node;</span><br><span class="line">            S.<span class="built_in">insert</span>(node);</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Node node = it-&gt;second;</span><br><span class="line">            S.<span class="built_in">erase</span>(node);</span><br><span class="line">            node.cnt += <span class="number">1</span>;</span><br><span class="line">            node.time = ++time;</span><br><span class="line">            node.value = value;</span><br><span class="line">            S.<span class="built_in">insert</span>(node);</span><br><span class="line">            it-&gt;second = node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your LFUCache object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * LFUCache* obj = new LFUCache(capacity);</span></span><br><span class="line"><span class="comment"> * int param_1 = obj-&gt;get(key);</span></span><br><span class="line"><span class="comment"> * obj-&gt;put(key,value);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>LRU</tag>
+        <tag>LFU</tag>
+        <tag>redis</tag>
+        <tag>缓存淘汰算法</tag>
+      </tags>
   </entry>
   <entry>
     <title>Mysql日志</title>
@@ -950,6 +980,11 @@
   <entry>
     <title>Arrays类的copyOf方法</title>
     <url>/2023/05/03/Arrays%E7%B1%BB%E7%9A%84copyOf%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>如何设计一个秒杀系统</title>
+    <url>/2023/05/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
