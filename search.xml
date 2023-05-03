@@ -154,7 +154,26 @@
   <entry>
     <title>Mysql索引</title>
     <url>/2023/04/26/Mysql%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h3 id="索引是什么？"><a href="#索引是什么？" class="headerlink" title="索引是什么？"></a>索引是什么？</h3><p>索引是一种数据结构。数据库索引是数据库管理系统中一个排序数据结构，用于加速数据查询。</p>
+<h3 id="索引的优点"><a href="#索引的优点" class="headerlink" title="索引的优点"></a>索引的优点</h3><p>数据库中的索引好比书中的目录，加快数据的检索</p>
+<h3 id="索引的缺点"><a href="#索引的缺点" class="headerlink" title="索引的缺点"></a>索引的缺点</h3><ul>
+<li><p>时间方面：创建和维护索引需要耗费时间，当表中的数据进行增、删、改的时候索引需要动态维护</p>
+</li>
+<li><p>空间方面：索引需要占用物理空间</p>
+</li>
+</ul>
+<h3 id="如何创建一个索引"><a href="#如何创建一个索引" class="headerlink" title="如何创建一个索引"></a>如何创建一个索引</h3><h3 id="创建索引的注意事项有哪些"><a href="#创建索引的注意事项有哪些" class="headerlink" title="创建索引的注意事项有哪些"></a>创建索引的注意事项有哪些</h3><h3 id="创建索引的原则有哪些？"><a href="#创建索引的原则有哪些？" class="headerlink" title="创建索引的原则有哪些？"></a>创建索引的原则有哪些？</h3><h3 id="什么时候会发生索引失效"><a href="#什么时候会发生索引失效" class="headerlink" title="什么时候会发生索引失效"></a>什么时候会发生索引失效</h3><h3 id="Mysql的索引类型有哪些？"><a href="#Mysql的索引类型有哪些？" class="headerlink" title="Mysql的索引类型有哪些？"></a>Mysql的索引类型有哪些？</h3><h3 id="索引的底层实现"><a href="#索引的底层实现" class="headerlink" title="索引的底层实现"></a>索引的底层实现</h3><h4 id="Hash索引的底层实现"><a href="#Hash索引的底层实现" class="headerlink" title="Hash索引的底层实现"></a>Hash索引的底层实现</h4><h4 id="B树索引的底层实现"><a href="#B树索引的底层实现" class="headerlink" title="B树索引的底层实现"></a>B树索引的底层实现</h4><h4 id="B-树索引的底层实现"><a href="#B-树索引的底层实现" class="headerlink" title="B+树索引的底层实现"></a>B+树索引的底层实现</h4><h5 id="B-树插入操作"><a href="#B-树插入操作" class="headerlink" title="B+树插入操作"></a>B+树插入操作</h5><h5 id="B-树的删除操作"><a href="#B-树的删除操作" class="headerlink" title="B+树的删除操作"></a>B+树的删除操作</h5><h3 id="如何查看Mysql语句有没有用到索引"><a href="#如何查看Mysql语句有没有用到索引" class="headerlink" title="如何查看Mysql语句有没有用到索引"></a>如何查看Mysql语句有没有用到索引</h3>]]></content>
+      <categories>
+        <category>Mysql</category>
+        <category>索引</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+        <tag>索引</tag>
+        <tag>B树</tag>
+        <tag>B+树</tag>
+        <tag>Hash索引</tag>
+      </tags>
   </entry>
   <entry>
     <title>Mysql事务</title>
