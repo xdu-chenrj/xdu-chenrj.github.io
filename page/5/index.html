@@ -162,6 +162,63 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/23/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/23/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" class="post-title-link" itemprop="url">类加载器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-04-23 20:03:40" itemprop="dateCreated datePublished" datetime="2023-04-23T20:03:40+08:00">2023-04-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/23/JVM%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -833,155 +890,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/02/leetcode%E7%AC%AC313%E5%9C%BA%E5%91%A8%E8%B5%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="chenrj">
-      <meta itemprop="description" content="向大佬学习orz">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenrj的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/02/leetcode%E7%AC%AC313%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="post-title-link" itemprop="url">第313场周赛</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-10-02 21:53:35 / 修改时间：22:23:43" itemprop="dateCreated datePublished" datetime="2022-10-02T21:53:35+08:00">2022-10-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="公因子的数目"><a href="#公因子的数目" class="headerlink" title="公因子的数目"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-common-factors/">公因子的数目</a></h2><p>给你两个正整数 <code>a</code> 和 <code>b</code> ，返回 <code>a</code> 和 <code>b</code> 的 <strong>公</strong> 因子的数目。</p>
-<p>如果 <code>x</code> 可以同时整除 <code>a</code> 和 <code>b</code> ，则认为 <code>x</code> 是 <code>a</code> 和 <code>b</code> 的一个 <strong>公因子</strong> 。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：a = 12, b = 6</span><br><span class="line">输出：4</span><br><span class="line">解释：12 和 6 的公因子是 1、2、3、6 。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：a = 25, b = 30</span><br><span class="line">输出：2</span><br><span class="line">解释：25 和 30 的公因子是 1、5 。</span><br></pre></td></tr></table></figure>
-
-<p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= a, b &lt;= 1000</code></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">commonFactors</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= a; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(a % i == <span class="number">0</span> &amp;&amp; b % i == <span class="number">0</span>) res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="沙漏的最大总和"><a href="#沙漏的最大总和" class="headerlink" title="沙漏的最大总和"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-sum-of-an-hourglass/">沙漏的最大总和</a></h2><p>给你一个大小为 <code>m x n</code> 的整数矩阵 <code>grid</code> 。</p>
-<p>按以下形式将矩阵的一部分定义为一个 <strong>沙漏</strong> ：</p>
-<p><img src="https://assets.leetcode.com/uploads/2022/08/21/img.jpg" alt="img"></p>
-<p>返回沙漏中元素的 <strong>最大</strong> 总和。</p>
-<p><strong>注意：</strong>沙漏无法旋转且必须整个包含在矩阵中。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2022/08/21/1.jpg" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[6,2,1,3],[4,2,1,5],[9,2,8,7],[4,1,2,9]]</span><br><span class="line">输出：30</span><br><span class="line">解释：上图中的单元格表示元素总和最大的沙漏：6 + 2 + 1 + 2 + 9 + 2 + 8 = 30 。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2022/08/21/2.jpg" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[1,2,3],[4,5,6],[7,8,9]]</span><br><span class="line">输出：35</span><br><span class="line">解释：上图中的单元格表示元素总和最大的沙漏：1 + 2 + 3 + 5 + 7 + 8 + 9 = 35 。</span><br></pre></td></tr></table></figure>
-
-<p><strong>提示：</strong></p>
-<ul>
-<li><code>m == grid.length</code></li>
-<li><code>n == grid[i].length</code></li>
-<li><code>3 &lt;= m, n &lt;= 150</code></li>
-<li><code>0 &lt;= grid[i][j] &lt;= 106</code></li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = grid.<span class="built_in">size</span>(), m = grid[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt; m - <span class="number">1</span>; j++) &#123;</span><br><span class="line">                <span class="type">int</span> s = grid[i][j];</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> k = j - <span class="number">1</span>; k &lt; j - <span class="number">1</span> + <span class="number">3</span>; k++) &#123;</span><br><span class="line">                    s += grid[i - <span class="number">1</span>][k] + grid[i + <span class="number">1</span>][k];</span><br><span class="line">                &#125;</span><br><span class="line">                res = <span class="built_in">max</span>(res, s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="最小-XOR"><a href="#最小-XOR" class="headerlink" title="最小 XOR"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimize-xor/">最小 XOR</a></h2><p>给你两个正整数 <code>num1</code> 和 <code>num2</code> ，找出满足下述条件的整数 <code>x</code> ：</p>
-<ul>
-<li><code>x</code> 的置位数和 <code>num2</code> 相同，且</li>
-<li><code>x XOR num1</code> 的值 <strong>最小</strong></li>
-</ul>
-<p>注意 <code>XOR</code> 是按位异或运算。</p>
-<p>返回整数 <code>x</code> 。题目保证，对于生成的测试用例， <code>x</code> 是 <strong>唯一确定</strong> 的。</p>
-<p>整数的 <strong>置位数</strong> 是其二进制表示中 <code>1</code> 的数目。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：num1 = 3, num2 = 5</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">num1 和 num2 的二进制表示分别是 0011 和 0101 。</span><br><span class="line">整数 3 的置位数与 num2 相同，且 3 XOR 3 = 0 是最小的。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：num1 = 1, num2 = 12</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">num1 和 num2 的二进制表示分别是 0001 和 1100 。</span><br><span class="line">整数 3 的置位数与 num2 相同，且 3 XOR 1 = 2 是最小的。</span><br></pre></td></tr></table></figure>
-
-<p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= num1, num2 &lt;= 109</code></li>
-</ul>
-<p>位运算，<code>^</code>运算相同为0，不同为1，要让最终的<code>^</code>结果最小，用尽量多的<code>1</code>从高位开始去占高位的<code>1</code>，这样会抹掉高位的<code>1</code>，如果还有多余的<code>1</code>，那就从低位开始，占低位的<code>0</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minimizeXor</span><span class="params">(<span class="type">int</span> num1, <span class="type">int</span> num2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(num2) &#123;</span><br><span class="line">            <span class="keyword">if</span>(num2 &amp; <span class="number">1</span>) cnt++;</span><br><span class="line">            num2 &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">30</span>; i &gt;= <span class="number">0</span> &amp;&amp; cnt &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(num1 &gt;&gt; i &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                res += <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">                cnt--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">31</span> &amp;&amp; cnt &gt; <span class="number">0</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!(num1 &gt;&gt; i &amp; <span class="number">1</span>)) &#123;</span><br><span class="line">                res += <span class="number">1</span> &lt;&lt; i;</span><br><span class="line">                cnt--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="对字母串可执行的最大删除数"><a href="#对字母串可执行的最大删除数" class="headerlink" title="对字母串可执行的最大删除数"></a>对字母串可执行的最大删除数</h2><p>给你一个仅由小写英文字母组成的字符串 <code>s</code> 。在一步操作中，你可以：</p>
-<ul>
-<li>删除 <strong>整个字符串</strong> <code>s</code> ，或者</li>
-<li>对于满足 <code>1 &lt;= i &lt;= s.length / 2</code> 的任意 <code>i</code> ，如果 <code>s</code> 中的 <strong>前</strong> <code>i</code> 个字母和接下来的 <code>i</code> 个字母 <strong>相等</strong> ，删除 <strong>前</strong> <code>i</code> 个字母。</li>
-</ul>
-<p>例如，如果 <code>s = &quot;ababc&quot;</code> ，那么在一步操作中，你可以删除 <code>s</code> 的前两个字母得到 <code>&quot;abc&quot;</code> ，因为 <code>s</code> 的前两个字母和接下来的两个字母都等于 <code>&quot;ab&quot;</code> 。</p>
-<p>返回删除 <code>s</code> 所需的最大操作数。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;abcabcdabc&quot;</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">- 删除前 3 个字母（&quot;abc&quot;），因为它们和接下来 3 个字母相等。现在，s = &quot;abcdabc&quot;。</span><br><span class="line">- 删除全部字母。</span><br><span class="line">一共用了 2 步操作，所以返回 2 。可以证明 2 是所需的最大操作数。</span><br><span class="line">注意，在第二步操作中无法再次删除 &quot;abc&quot; ，因为 &quot;abc&quot; 的下一次出现并不是位于接下来的 3 个字母。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;aaabaab&quot;</span><br><span class="line">输出：4</span><br><span class="line">解释：</span><br><span class="line">- 删除第一个字母（&quot;a&quot;），因为它和接下来的字母相等。现在，s = &quot;aabaab&quot;。</span><br><span class="line">- 删除前 3 个字母（&quot;aab&quot;），因为它们和接下来 3 个字母相等。现在，s = &quot;aab&quot;。 </span><br><span class="line">- 删除第一个字母（&quot;a&quot;），因为它和接下来的字母相等。现在，s = &quot;ab&quot;。</span><br><span class="line">- 删除全部字母。</span><br><span class="line">一共用了 4 步操作，所以返回 4 。可以证明 4 是所需的最大操作数。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 3：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;aaaaa&quot;</span><br><span class="line">输出：5</span><br><span class="line">解释：在每一步操作中，都可以仅删除 s 的第一个字母。</span><br></pre></td></tr></table></figure>
-
-<p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= s.length &lt;= 4000</code></li>
-<li><code>s</code> 仅由小写英文字母组成</li>
-</ul>
-<p>字符串哈希，线性动态规划。</p>
-<p>用字符串<code>hash</code>通过<code>O(n^2)</code>的预处理，可以在<code>O(1)</code>的时间内查询两个字符串是否相同。</p>
-<p><code>f[i]</code>表示删掉<code>i</code>后缀用的最大操作次数。</p>
-<p>枚举后缀长度<code>j</code>，如果<code>i</code>开始长度为<code>j</code>的字符串可以删除，</p>
-<p>表示<code>[i, i + j - 1]</code>和<code>[i + j, i + j + j -1]</code>的字符串是相同的，</p>
-<p>那么后缀<code>i</code>的删除次数可以增加一次，可以更新最大删除次数：<code>f[i] = max(f[i], f[i + j] + 1)</code>，</p>
-<p>对每一个<code>i</code>枚举所有合法的长度<code>j</code>，取最大值，便是<code>f[i]</code>，删除<code>i</code>后缀的最大操作次数。</p>
-<p>时间复杂度为<code>O(n^2)</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">int</span> P = <span class="number">131</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> h[<span class="number">4005</span>], p[<span class="number">4005</span>];</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> h[r] - h[l - <span class="number">1</span>] * p[r - l + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">deleteString</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        p[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            p[i] = p[i - <span class="number">1</span>] * P;</span><br><span class="line">            h[i] = h[i - <span class="number">1</span>] * P + s[i - <span class="number">1</span>]; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">f</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = n; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            f[i] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= (n - i + <span class="number">1</span>) / <span class="number">2</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">get</span>(i, i + j - <span class="number">1</span>) == <span class="built_in">get</span>(i + j, i + j + j - <span class="number">1</span>)) &#123;</span><br><span class="line">                    f[i] = <span class="built_in">max</span>(f[i], f[i + j] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">return</span> f[<span class="number">1</span>];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1051,7 +959,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
