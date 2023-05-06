@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://example.com/2023/05/06/Java%E5%80%BC%E4%BC%A0%E9%80%92/</loc>
+    <lastmod>2023-05-06</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/2023/05/06/Java%E6%B3%9B%E5%9E%8B%E5%92%8C%E9%80%9A%E9%85%8D%E7%AC%A6/</loc>
     <lastmod>2023-05-06</lastmod>
   </url>
