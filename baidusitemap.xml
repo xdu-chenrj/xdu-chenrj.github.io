@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://example.com/2023/05/06/Netty%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</loc>
+    <lastmod>2023-05-06</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2023/05/06/Netty%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2023-05-06</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2023/05/06/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2023-05-06</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2023/05/06/Netty%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</loc>
+    <lastmod>2023-05-06</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/2023/05/06/Spring%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2023-05-06</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/2023/05/06/SpringBoot%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2023-05-06</lastmod>
   </url>
