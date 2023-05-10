@@ -9,6 +9,10 @@
     <lastmod>2023-05-09</lastmod>
   </url>
   <url>
+    <loc>http://example.com/2023/05/02/ArrayList/</loc>
+    <lastmod>2023-05-09</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/2023/05/06/linux%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5/</loc>
     <lastmod>2023-05-06</lastmod>
   </url>
@@ -183,10 +187,6 @@
   <url>
     <loc>http://example.com/2023/05/03/Arrays%E7%B1%BB%E7%9A%84copyOf%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2023-05-03</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/2023/05/02/ArrayList/</loc>
-    <lastmod>2023-05-02</lastmod>
   </url>
   <url>
     <loc>http://example.com/2023/04/06/HashMap%E8%AF%A6%E8%A7%A3/</loc>
