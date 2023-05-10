@@ -368,7 +368,9 @@
   <entry>
     <title>Spring-IOC</title>
     <url>/2023/04/28/Spring-IOC/</url>
-    <content><![CDATA[<h3 id="SpringIOC概念"><a href="#SpringIOC概念" class="headerlink" title="SpringIOC概念"></a>SpringIOC概念</h3>]]></content>
+    <content><![CDATA[<h3 id="SpringIOC的概念"><a href="#SpringIOC的概念" class="headerlink" title="SpringIOC的概念"></a>SpringIOC的概念</h3><p>IOC是控制反转，就是由容器来负责管理对象的生命周期和对象间的关系。</p>
+<h3 id="SpringIOC的意义"><a href="#SpringIOC的意义" class="headerlink" title="SpringIOC的意义"></a>SpringIOC的意义</h3><p>在传统的应用程序中，对象的创建和依赖关系的管理通常由开发人员手动进行。这种紧密耦合的设计使得程序难以测试、理解和修改。SpringIOC通过反转对象的控制，将对象的创建和依赖关系的管理交给容器负，从而实现了对象之间的松耦合。</p>
+<h3 id="SpringIOC的实现机制"><a href="#SpringIOC的实现机制" class="headerlink" title="SpringIOC的实现机制"></a>SpringIOC的实现机制</h3><h3 id="IOC和DI的区别"><a href="#IOC和DI的区别" class="headerlink" title="IOC和DI的区别"></a>IOC和DI的区别</h3>]]></content>
       <categories>
         <category>spring</category>
       </categories>
