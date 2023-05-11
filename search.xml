@@ -163,7 +163,22 @@
   <entry>
     <title>Java-IO模型</title>
     <url>/2023/05/06/Java-IO%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>磁盘<code>IO</code>分为两步，一步是准备数据，一步是获取数据</p>
+<h3 id="unix-IO模型"><a href="#unix-IO模型" class="headerlink" title="unix IO模型"></a><code>unix IO</code>模型</h3><p>阻塞<code>IO</code> （同步阻塞）【两阶段都是阻塞的】</p>
+<p>非阻塞<code>IO</code> （同步非阻塞）【准备数据阶段不阻塞，获取数据阶段阻塞】</p>
+<p>多路复用<code>IO</code>（同步非阻塞）【<code>selector</code>阻塞，别的事件不阻塞，获取事件阻塞】</p>
+<p>信号驱动<code>IO</code></p>
+<p>异步<code>IO</code>（异步非阻塞）</p>
+<h3 id="阻塞IO和多路复用IO的区别："><a href="#阻塞IO和多路复用IO的区别：" class="headerlink" title="阻塞IO和多路复用IO的区别："></a>阻塞IO和多路复用IO的区别：</h3><p>阻塞<code>IO</code>只能通过特定的时间结束阻塞，而多路复用<code>IO</code>可以通过任意注册的事件来结束阻塞</p>
+<p>阻塞<code>IO</code>是具体的阻塞，多路复用是<code>selector</code>阻塞，<code>selector</code>可以检测多种事件，返回一批事件，然后在一个循环中处理这些事件。</p>
+<h3 id="阻塞和非阻塞的区别"><a href="#阻塞和非阻塞的区别" class="headerlink" title="阻塞和非阻塞的区别"></a>阻塞和非阻塞的区别</h3><p>阻塞：调用线程只有在得到结果之后才会返回。（线程发起<code>read</code>需要等待数据）</p>
+<p>非阻塞：在不能立刻得到结果之前，不会阻塞当前线程。（线程发起<code>read</code>不需要等待直接返回）</p>
+<h3 id="同步和异步的区别"><a href="#同步和异步的区别" class="headerlink" title="同步和异步的区别"></a>同步和异步的区别</h3><p>同步：线程自己获取结果</p>
+<p>异步：线程自己不去获取结果，而是由其他线程送结果（至少两个线程）</p>
+<h3 id="Java-IO模型"><a href="#Java-IO模型" class="headerlink" title="Java IO模型"></a>Java IO模型</h3><h4 id="BIO-（同步阻塞IO）"><a href="#BIO-（同步阻塞IO）" class="headerlink" title="BIO （同步阻塞IO）"></a>BIO （同步阻塞IO）</h4><h4 id="NIO（同步非阻塞IO）"><a href="#NIO（同步非阻塞IO）" class="headerlink" title="NIO（同步非阻塞IO）"></a>NIO（同步非阻塞IO）</h4>]]></content>
+      <tags>
+        <tag>IO模型</tag>
+      </tags>
   </entry>
   <entry>
     <title>Java-IO基础知识.md</title>
