@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="概念介绍BootStrapBootStrap是Netty提供的一个遍历工厂类，可以用它来完成Netty客户端和服务端的初始化 BootStrap是客户端的启动类，ServerBootStrap是服务端的启动类 父子channel 在Netty中，channel是一个Socket连接的抽象，它为用户提供了查看Socket的状态，以及对Socket的读写操作  Netty建立连接会有一个对应的Chan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty-Bootstrap">
+<meta property="og:url" content="http://example.com/2023/05/11/Netty-Bootstrap/index.html">
+<meta property="og:site_name" content="chenrj的博客">
+<meta property="og:description" content="概念介绍BootStrapBootStrap是Netty提供的一个遍历工厂类，可以用它来完成Netty客户端和服务端的初始化 BootStrap是客户端的启动类，ServerBootStrap是服务端的启动类 父子channel 在Netty中，channel是一个Socket连接的抽象，它为用户提供了查看Socket的状态，以及对Socket的读写操作  Netty建立连接会有一个对应的Chan">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-11T11:38:31.000Z">
+<meta property="article:modified_time" content="2023-05-11T15:28:30.546Z">
+<meta property="article:author" content="chenrj">
+<meta property="article:tag" content="netty">
+<meta property="article:tag" content="bootstrap">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/05/11/Netty-Bootstrap/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Netty-Bootstrap | chenrj的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">chenrj的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/11/Netty-Bootstrap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Netty-Bootstrap
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-11 19:38:31 / 修改时间：23:28:30" itemprop="dateCreated datePublished" datetime="2023-05-11T19:38:31+08:00">2023-05-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><h4 id="BootStrap"><a href="#BootStrap" class="headerlink" title="BootStrap"></a>BootStrap</h4><p><code>BootStrap</code>是<code>Netty</code>提供的一个遍历工厂类，可以用它来完成<code>Netty</code>客户端和服务端的初始化</p>
+<p><code>BootStrap</code>是客户端的启动类，<code>ServerBootStrap</code>是服务端的启动类</p>
+<h4 id="父子channel"><a href="#父子channel" class="headerlink" title="父子channel"></a>父子channel</h4><ul>
+<li><p>在<code>Netty</code>中，<code>channel</code>是一个<code>Socket</code>连接的抽象，它为用户提供了查看<code>Socket</code>的状态，以及对<code>Socket</code>的读写操作</p>
+</li>
+<li><p><code>Netty</code>建立连接会有一个对应的<code>Channel</code>实例</p>
+</li>
+<li><p>服务器监听的<code>channel</code>叫做<code>parent channel</code>，对于每一个<code>Socket</code>连接的<code>channel</code>叫做<code>child channel</code></p>
+</li>
+</ul>
+<h4 id="EventLoop线程与线程组"><a href="#EventLoop线程与线程组" class="headerlink" title="EventLoop线程与线程组"></a>EventLoop线程与线程组</h4><ul>
+<li><p>在<code>Netty</code>中，每一个<code>channel</code>绑定一个<code>thread</code>线程</p>
+</li>
+<li><p>一个<code>thread</code>线程封装到一个<code>EventLoop</code>中，多个<code>EventLoop</code>组成一个<code>EventLoopGroup</code>，一个<code>EventLoopGroup</code>就是一个线程组</p>
+</li>
+</ul>
+<p><code>Netty</code>服务端一般有两个线程组，一个是<code>boss</code>线程组，一个是<code>worker</code>线程组，客户端一般只有一个线程组。</p>
+<ul>
+<li><code>boss</code>线程组主要负责监听连接<code>parent channel</code></li>
+<li><code>worker</code>线程组里主要负责读写<code>child channel</code></li>
+</ul>
+<h4 id="Channel通道的类型"><a href="#Channel通道的类型" class="headerlink" title="Channel通道的类型"></a>Channel通道的类型</h4><p>除了<code>TCP</code>协议以外，<code>Netty</code>还支持很多其他的协议，并且每种协议还支持不同的<code>IO</code>模型，<code>NIO</code>，<code>BIO</code></p>
+<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h3><p>1、设置<code>EventLoopGroup</code>线程组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.group(bossLoopGroup, workerLoopGroup);</span><br></pre></td></tr></table></figure>
+
+<p>2、设置通道<code>Channel</code>类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.channel(NioServerSocketChannel.class);</span><br></pre></td></tr></table></figure>
+
+<p>3、设置监听端口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.localAddress(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(port));</span><br></pre></td></tr></table></figure>
+
+<p>4、设置通道参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">childOption()方法，针对child channel</span><br><span class="line"><span class="title function_">Option</span><span class="params">()</span>方法，针对parent channel</span><br></pre></td></tr></table></figure>
+
+<p>参数：</p>
+<p><code>SO_KEEPALIVE</code>：TCP协议的心跳机制。</p>
+<p><code>SO_BACKLOG</code>：表示系统用于临时存放已完成三次握手的请求的队列的最大长度</p>
+<p>5、装配流水线</p>
+<p>可以为<code>child channel</code>装配流水线<code>childHandler()</code>，也可以为<code>parent channel</code>装配流水线<code>handler()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">b.childHandler(<span class="keyword">new</span> <span class="title class_">ChannelInitializer</span>&lt;NioSocketChannel&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">initChannel</span><span class="params">(NioSocketChannel nioSocketChannel)</span> &#123;</span><br><span class="line">        nioSocketChannel.pipeline().addLast();</span><br><span class="line">        nioSocketChannel.pipeline().addLast(<span class="keyword">new</span> <span class="title class_">NettyServerHandler</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>一般流水线可以加编码处理器、解码处理器、以及<code>Channel</code>处理器。<code>Channel</code>处理器 <code>ChannelHandler</code> 用来处理网络请求内容，有<code>ChannelInboundHandler</code>和<code>ChannelOutboundHandler</code>两种，<code>ChannlPipeline</code>会从头到尾顺序调用<code>ChannelInboundHandler</code>处理网络请求内容，从尾到头调用<code>ChannelOutboundHandler</code>处理网络请求内容。</p>
+<p><code>ChannelInboundHandler</code>和<code>ChannelOutboundHandler</code>是两个接口，有<code>ChannelInboundHandlerAdapter</code>和<code>ChannelOutboundHandlerAdapter</code>实现类。</p>
+<p>6、绑定<code>Server</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ChannelFuture</span> <span class="variable">channelFuture</span> <span class="operator">=</span> b.bind().sync();</span><br></pre></td></tr></table></figure>
+
+<p><code>sync</code>是同步方法，用来阻塞，直到绑定成功</p>
+<p>7、等待通道关闭</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ChannelFuture</span> <span class="variable">closeFuture</span> <span class="operator">=</span> channelFuture.channel().closeFuture();</span><br><span class="line">closeFuture.sync();</span><br></pre></td></tr></table></figure>
+
+<p><code>ChannelFuture</code>在<code>Netty</code>中的所有的<code>I/O</code>操作都是异步执行的，这就意味着任何一个<code>I/O</code>操作会立刻返回，但是不保证在调用结束的时候操作会执行完成。</p>
+<p>需要<code>sync</code>同步方法等待通道关闭</p>
+<p>8、优雅关闭<code>EventLoopGroup</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">workerLoopGroup.shutdownGracefully();</span><br><span class="line">bossLoopGroup.shutdownGracefully();</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/netty/" rel="tag"># netty</a>
+              <a href="/tags/bootstrap/" rel="tag"># bootstrap</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/11/Socket%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" rel="prev" title="Socket网络通信">
+      <i class="fa fa-chevron-left"></i> Socket网络通信
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">概念介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BootStrap"><span class="nav-number">1.1.</span> <span class="nav-text">BootStrap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%88%B6%E5%AD%90channel"><span class="nav-number">1.2.</span> <span class="nav-text">父子channel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EventLoop%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text">EventLoop线程与线程组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel%E9%80%9A%E9%81%93%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">Channel通道的类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">启动流程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chenrj</p>
+  <div class="site-description" itemprop="description">向大佬学习orz</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenrj</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
