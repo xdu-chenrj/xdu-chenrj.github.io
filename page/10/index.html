@@ -162,6 +162,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/leetcode%E7%AC%AC319%E5%9C%BA%E5%91%A8%E8%B5%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/16/leetcode%E7%AC%AC319%E5%9C%BA%E5%91%A8%E8%B5%9B/" class="post-title-link" itemprop="url">leetcode第319场周赛</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-16 15:19:12 / 修改时间：17:56:31" itemprop="dateCreated datePublished" datetime="2022-11-16T15:19:12+08:00">2022-11-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="温度转换"><a href="#温度转换" class="headerlink" title="温度转换"></a>温度转换</h3><h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><p>给你一个四舍五入到两位小数的非负浮点数$$celsius$$来表示温度，以 <strong>摄氏度</strong>（<strong>Celsius</strong>）为单位。</p>
+<p>你需要将摄氏度转换为 <strong>开氏度</strong>（<strong>Kelvin</strong>）和 <strong>华氏度</strong>（<strong>Fahrenheit</strong>），并以数组 $$ans &#x3D; [kelvin, fahrenheit]$$的形式返回结果。</p>
+<p>返回数组 $$ans$$ 。与实际答案误差不超过 $$10^{-5}$$ 的会视为正确答案。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><code>开氏度 = 摄氏度 + 273.15</code></li>
+<li><code>华氏度 = 摄氏度 * 1.80 + 32.00</code></li>
+</ul>
+<p><strong>示例 1 ：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：celsius = 36.50</span><br><span class="line">输出：[309.65000,97.70000]</span><br><span class="line">解释：36.50 摄氏度：转换为开氏度是 309.65 ，转换为华氏度是 97.70 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2 ：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：celsius = 122.11</span><br><span class="line">输出：[395.26000,251.79800]</span><br><span class="line">解释：122.11 摄氏度：转换为开氏度是 395.26 ，转换为华氏度是 251.798 。</span><br></pre></td></tr></table></figure>
+
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>模拟即可。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">double</span>&gt; <span class="title">convertTemperature</span><span class="params">(<span class="type">double</span> celsius)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;celsius + <span class="number">273.15</span>, celsius * <span class="number">1.80</span> + <span class="number">32.00</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="最小公倍数为K的子数组数目"><a href="#最小公倍数为K的子数组数目" class="headerlink" title="最小公倍数为K的子数组数目"></a>最小公倍数为K的子数组数目</h3><h4 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h4><p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，请你统计并返回 <code>nums</code> 的 <strong>子数组</strong> 中满足 <em>元素最小公倍数为 <code>k</code></em> 的子数组数目。</p>
+<p><strong>子数组</strong> 是数组中一个连续非空的元素序列。</p>
+<p><strong>数组的最小公倍数</strong> 是可被所有数组元素整除的最小正整数。</p>
+<p><strong>示例 1 ：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,6,2,7,1], k = 6</span><br><span class="line">输出：4</span><br><span class="line">解释：以 6 为最小公倍数的子数组是：</span><br><span class="line">- [3,6,2,7,1]</span><br><span class="line">- [3,6,2,7,1]</span><br><span class="line">- [3,6,2,7,1]</span><br><span class="line">- [3,6,2,7,1]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2 ：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3], k = 2</span><br><span class="line">输出：0</span><br><span class="line">解释：不存在以 2 为最小公倍数的子数组。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 1000</code></li>
+<li><code>1 &lt;= nums[i], k &lt;= 1000</code></li>
+</ul>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>$$nums[i]$$, $$nums[i + 1]$$, $$nums[i + 2]$$的最小公倍数等于$$(nums[i]与nums[i + 1])$$的最小公倍数与$$nums[i + 2]$$的最小公倍数，是一个传导的过程，若干数的最大公约数也是如此。</p>
+<p>当最小公倍数大于$$k$$时，及时break，减少不必要的计算。</p>
+<h4 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">gcd</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> b ? <span class="built_in">gcd</span>(b, a % b) : a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">subarrayLCM</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="type">int</span> t = nums[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = i; j &lt; nums.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                t = t * nums[j] / <span class="built_in">gcd</span>(t, nums[j]);</span><br><span class="line">                <span class="keyword">if</span>(t == k) res++;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(t &gt; k) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="逐层排序二叉树所需的最小操作数目"><a href="#逐层排序二叉树所需的最小操作数目" class="headerlink" title="逐层排序二叉树所需的最小操作数目"></a>逐层排序二叉树所需的最小操作数目</h3><h4 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h4><p>给你一个 <strong>值互不相同</strong> 的二叉树的根节点 <code>root</code> 。</p>
+<p>在一步操作中，你可以选择 <strong>同一层</strong> 上任意两个节点，交换这两个节点的值。</p>
+<p>返回每一层按 <strong>严格递增顺序</strong> 排序所需的最少操作数目。</p>
+<p>节点的 <strong>层数</strong> 是该节点和根节点之间的路径的边数。</p>
+<p><strong>示例 1 ：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2022/09/18/image-20220918174006-2.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,4,3,7,6,8,5,null,null,null,null,9,null,10]</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">- 交换 4 和 3 。第 2 层变为 [3,4] 。</span><br><span class="line">- 交换 7 和 5 。第 3 层变为 [5,6,8,7] 。</span><br><span class="line">- 交换 8 和 7 。第 3 层变为 [5,6,7,8] 。</span><br><span class="line">共计用了 3 步操作，所以返回 3 。</span><br><span class="line">可以证明 3 是需要的最少操作数目。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2 ：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2022/09/18/image-20220918174026-3.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,3,2,7,6,5,4]</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">- 交换 3 和 2 。第 2 层变为 [2,3] 。 </span><br><span class="line">- 交换 7 和 4 。第 3 层变为 [4,6,5,7] 。 </span><br><span class="line">- 交换 6 和 5 。第 3 层变为 [4,5,6,7] 。</span><br><span class="line">共计用了 3 步操作，所以返回 3 。 </span><br><span class="line">可以证明 3 是需要的最少操作数目。</span><br></pre></td></tr></table></figure>
+
+<h4 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h4><p>此问题可以拆解成两个问题。第一个问题是二叉树的层序遍历，第二个问题是如何在交换次数尽量少的情况下使得数组有序。</p>
+<p>层序遍历可以用$BFS$来实现。</p>
+<p>第二个问题可以通过</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/08/%E6%BB%91%E9%9B%AA%E8%BD%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1127,7 +1237,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
