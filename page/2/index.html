@@ -162,6 +162,232 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/11/Netty-Bootstrap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/11/Netty-Bootstrap/" class="post-title-link" itemprop="url">Netty-Bootstrap</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-11 19:38:31 / 修改时间：23:28:30" itemprop="dateCreated datePublished" datetime="2023-05-11T19:38:31+08:00">2023-05-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><h4 id="BootStrap"><a href="#BootStrap" class="headerlink" title="BootStrap"></a>BootStrap</h4><p><code>BootStrap</code>是<code>Netty</code>提供的一个遍历工厂类，可以用它来完成<code>Netty</code>客户端和服务端的初始化</p>
+<p><code>BootStrap</code>是客户端的启动类，<code>ServerBootStrap</code>是服务端的启动类</p>
+<h4 id="父子channel"><a href="#父子channel" class="headerlink" title="父子channel"></a>父子channel</h4><ul>
+<li><p>在<code>Netty</code>中，<code>channel</code>是一个<code>Socket</code>连接的抽象，它为用户提供了查看<code>Socket</code>的状态，以及对<code>Socket</code>的读写操作</p>
+</li>
+<li><p><code>Netty</code>建立连接会有一个对应的<code>Channel</code>实例</p>
+</li>
+<li><p>服务器监听的<code>channel</code>叫做<code>parent channel</code>，对于每一个<code>Socket</code>连接的<code>channel</code>叫做<code>child channel</code></p>
+</li>
+</ul>
+<h4 id="EventLoop线程与线程组"><a href="#EventLoop线程与线程组" class="headerlink" title="EventLoop线程与线程组"></a>EventLoop线程与线程组</h4><ul>
+<li><p>在<code>Netty</code>中，每一个<code>channel</code>绑定一个<code>thread</code>线程</p>
+</li>
+<li><p>一个<code>thread</code>线程封装到一个<code>EventLoop</code>中，多个<code>EventLoop</code>组成一个<code>EventLoopGroup</code>，一个<code>EventLoopGroup</code>就是一个线程组</p>
+</li>
+</ul>
+<p><code>Netty</code>服务端一般有两个线程组，一个是<code>boss</code>线程组，一个是<code>worker</code>线程组，客户端一般只有一个线程组。</p>
+<ul>
+<li><code>boss</code>线程组主要负责监听连接<code>parent channel</code></li>
+<li><code>worker</code>线程组里主要负责读写<code>child channel</code></li>
+</ul>
+<h4 id="Channel通道的类型"><a href="#Channel通道的类型" class="headerlink" title="Channel通道的类型"></a>Channel通道的类型</h4><p>除了<code>TCP</code>协议以外，<code>Netty</code>还支持很多其他的协议，并且每种协议还支持不同的<code>IO</code>模型，<code>NIO</code>，<code>BIO</code></p>
+<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h3><p>1、设置<code>EventLoopGroup</code>线程组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.group(bossLoopGroup, workerLoopGroup);</span><br></pre></td></tr></table></figure>
+
+<p>2、设置通道<code>Channel</code>类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.channel(NioServerSocketChannel.class);</span><br></pre></td></tr></table></figure>
+
+<p>3、设置监听端口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.localAddress(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(port));</span><br></pre></td></tr></table></figure>
+
+<p>4、设置通道参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">childOption()方法，针对child channel</span><br><span class="line"><span class="title function_">Option</span><span class="params">()</span>方法，针对parent channel</span><br></pre></td></tr></table></figure>
+
+<p>参数：</p>
+<p><code>SO_KEEPALIVE</code>：TCP协议的心跳机制。</p>
+<p><code>SO_BACKLOG</code>：表示系统用于临时存放已完成三次握手的请求的队列的最大长度</p>
+<p>5、装配流水线</p>
+<p>可以为<code>child channel</code>装配流水线<code>childHandler()</code>，也可以为<code>parent channel</code>装配流水线<code>handler()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">b.childHandler(<span class="keyword">new</span> <span class="title class_">ChannelInitializer</span>&lt;NioSocketChannel&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">initChannel</span><span class="params">(NioSocketChannel nioSocketChannel)</span> &#123;</span><br><span class="line">        nioSocketChannel.pipeline().addLast();</span><br><span class="line">        nioSocketChannel.pipeline().addLast(<span class="keyword">new</span> <span class="title class_">NettyServerHandler</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>一般流水线可以加编码处理器、解码处理器、以及<code>Channel</code>处理器。<code>Channel</code>处理器 <code>ChannelHandler</code> 用来处理网络请求内容，有<code>ChannelInboundHandler</code>和<code>ChannelOutboundHandler</code>两种，<code>ChannlPipeline</code>会从头到尾顺序调用<code>ChannelInboundHandler</code>处理网络请求内容，从尾到头调用<code>ChannelOutboundHandler</code>处理网络请求内容。</p>
+<p><code>ChannelInboundHandler</code>和<code>ChannelOutboundHandler</code>是两个接口，有<code>ChannelInboundHandlerAdapter</code>和<code>ChannelOutboundHandlerAdapter</code>实现类。</p>
+<p>6、绑定<code>Server</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ChannelFuture</span> <span class="variable">channelFuture</span> <span class="operator">=</span> b.bind().sync();</span><br></pre></td></tr></table></figure>
+
+<p><code>sync</code>是同步方法，用来阻塞，直到绑定成功</p>
+<p>7、等待通道关闭</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ChannelFuture</span> <span class="variable">closeFuture</span> <span class="operator">=</span> channelFuture.channel().closeFuture();</span><br><span class="line">closeFuture.sync();</span><br></pre></td></tr></table></figure>
+
+<p><code>ChannelFuture</code>在<code>Netty</code>中的所有的<code>I/O</code>操作都是异步执行的，这就意味着任何一个<code>I/O</code>操作会立刻返回，但是不保证在调用结束的时候操作会执行完成。</p>
+<p>需要<code>sync</code>同步方法等待通道关闭</p>
+<p>8、优雅关闭<code>EventLoopGroup</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">workerLoopGroup.shutdownGracefully();</span><br><span class="line">bossLoopGroup.shutdownGracefully();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/11/Socket%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/11/Socket%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">Socket网络通信</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-05-11 09:16:47 / 修改时间：11:18:48" itemprop="dateCreated datePublished" datetime="2023-05-11T09:16:47+08:00">2023-05-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/socket/" itemprop="url" rel="index"><span itemprop="name">socket</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Socket网络通信的整体流程"><a href="#Socket网络通信的整体流程" class="headerlink" title="Socket网络通信的整体流程"></a>Socket网络通信的整体流程</h3><p>1、建立服务端并监听客户端请求</p>
+<p>2、客户端请求并与服务端建立连接</p>
+<p>3、两端之间进行数据传输</p>
+<p>4、关闭资源</p>
+<h4 id="服务端："><a href="#服务端：" class="headerlink" title="服务端："></a>服务端：</h4><p>1、创建<code>ServerSocket</code>对象并绑定<code>ip</code>和端口号<code>port</code>，<code>server.bind(new InetSocketAddress(host, port))</code></p>
+<p>2、通过<code>accept</code>方法监听客户端请求：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> ((socket = server.accept()) != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、连接建立后通过输入流读取客户端发送的请求信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">objectInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(socket.getInputStream());</span><br><span class="line">                <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> (Message) objectInputStream.readObject();</span><br></pre></td></tr></table></figure>
+
+<p>4、通过输出流向客户端发送响应数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">objectOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(socket.getOutputStream());</span><br><span class="line">message.setConnect(message.getConnect() + <span class="string">&quot; hello&quot;</span>);</span><br><span class="line">objectOutputStream.writeObject(message);</span><br><span class="line">objectOutputStream.flush();</span><br></pre></td></tr></table></figure>
+
+<p>5、关闭资源</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(<span class="type">int</span> port)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建ServerSocket对象并绑定一个端口</span></span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(port)) &#123;</span><br><span class="line">            Socket socket;</span><br><span class="line">            <span class="comment">// 通过accept方法监听客户端请求</span></span><br><span class="line">            <span class="keyword">while</span> ((socket = serverSocket.accept()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                log.info(<span class="string">&quot;connect success&quot;</span>);</span><br><span class="line">                <span class="type">ObjectInputStream</span> <span class="variable">objectInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(socket.getInputStream());</span><br><span class="line">                <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> (Message) objectInputStream.readObject();</span><br><span class="line">                <span class="type">ObjectOutputStream</span> <span class="variable">objectOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(socket.getOutputStream());</span><br><span class="line">                log.info(<span class="string">&quot;server receive &quot;</span> + message.getConnect());</span><br><span class="line">                message.setConnect(message.getConnect() + <span class="string">&quot; hello&quot;</span>);</span><br><span class="line">                objectOutputStream.writeObject(message);</span><br><span class="line">                objectOutputStream.flush();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | ClassNotFoundException e) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;occur exception &quot;</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="comment">// 创建 socket 连接</span></span><br><span class="line">            <span class="type">HelloServer</span> <span class="variable">helloServer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloServer</span>();</span><br><span class="line">            helloServer.start(<span class="number">8888</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>1、创建<code>Socket</code>对象并且连接指定的服务器地址<code>ip</code>和端口号<code>port</code>，<code>Socket socket = new Socket(host, port)</code></p>
+<p>2、建立连接后，通过输出流向服务端发送请求信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">objectOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(socket.getOutputStream());</span><br><span class="line"><span class="comment">// 通过输出流向服务发送请求信息</span></span><br><span class="line">objectOutputStream.writeObject(message);</span><br></pre></td></tr></table></figure>
+
+<p>3、通过输入流获取服务器响应信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">objectInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(socket.getInputStream());</span><br><span class="line"><span class="type">Object</span> <span class="variable">res</span> <span class="operator">=</span> objectInputStream.readObject();</span><br></pre></td></tr></table></figure>
+
+<p>4、关闭资源</p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloClient</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">send</span><span class="params">(Message message, String host, <span class="type">int</span> port)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建socket对象，并制定服务所在地址和端口号</span></span><br><span class="line">        <span class="keyword">try</span> (<span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(host, port))&#123;</span><br><span class="line">            <span class="type">ObjectOutputStream</span> <span class="variable">objectOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(socket.getOutputStream());</span><br><span class="line">            <span class="comment">// 通过输出流向服务发送请求信息</span></span><br><span class="line">            objectOutputStream.writeObject(message);</span><br><span class="line">            log.info(<span class="string">&quot;client send message: &quot;</span> + message.getConnect());</span><br><span class="line">            <span class="comment">// 通过输入流获取服务器响应信息</span></span><br><span class="line">            <span class="type">ObjectInputStream</span> <span class="variable">objectInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(socket.getInputStream());</span><br><span class="line">            <span class="keyword">return</span> objectInputStream.readObject();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | ClassNotFoundException e) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;occur exception:&quot;</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">HelloClient</span> <span class="variable">helloClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloClient</span>();</span><br><span class="line">        <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> (Message) helloClient.send(<span class="keyword">new</span> <span class="title class_">Message</span>(<span class="string">&quot;hello&quot;</span>), <span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8888</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;client receive message：&quot;</span> + message.getConnect());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>因为<code>ServerSocket</code>的<code>accept</code>方法是阻塞方法</p>
+<p>服务端同一时间只能处理一个客户端</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>1、为每个请求的客户端创建一个线程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">threadA</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">    <span class="type">HelloClient</span> <span class="variable">helloClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloClient</span>();</span><br><span class="line">    <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> (Message) helloClient.send(<span class="keyword">new</span> <span class="title class_">Message</span>(<span class="string">&quot;helloA&quot;</span>), <span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8888</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;client receive message：&quot;</span> + message.getConnect());</span><br><span class="line">&#125;);</span><br><span class="line">threadA.start();</span><br><span class="line"><span class="type">Thread</span> <span class="variable">threadB</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">    <span class="type">HelloClient</span> <span class="variable">helloClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloClient</span>();</span><br><span class="line">    <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> (Message) helloClient.send(<span class="keyword">new</span> <span class="title class_">Message</span>(<span class="string">&quot;helloB&quot;</span>), <span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8888</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;client receive message：&quot;</span> + message.getConnect());</span><br><span class="line">&#125;);</span><br><span class="line">threadB.start();</span><br><span class="line"><span class="type">Thread</span> <span class="variable">threadC</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">    <span class="type">HelloClient</span> <span class="variable">helloClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloClient</span>();</span><br><span class="line">    <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> (Message) helloClient.send(<span class="keyword">new</span> <span class="title class_">Message</span>(<span class="string">&quot;helloC&quot;</span>), <span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8888</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;client receive message：&quot;</span> + message.getConnect());</span><br><span class="line">&#125;);</span><br><span class="line">threadC.start();</span><br></pre></td></tr></table></figure>
+
+<p>频繁创建线程、销毁线程是非常浪费资源的，线程池是线程管理的最佳选择</p>
+<p>2、使用线程池处理客户端请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ThreadFactory</span> <span class="variable">threadFactory</span> <span class="operator">=</span> Executors.defaultThreadFactory();</span><br><span class="line"><span class="type">ExecutorService</span> <span class="variable">threadPool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(<span class="number">10</span>, <span class="number">100</span>, <span class="number">1</span>, TimeUnit.MINUTES, <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">100</span>), threadFactory);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">finalI</span> <span class="operator">=</span> i;</span><br><span class="line">    threadPool.execute(() -&gt; &#123;</span><br><span class="line">        <span class="type">HelloClient</span> <span class="variable">helloClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloClient</span>();</span><br><span class="line">        <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> (Message) helloClient.send(<span class="keyword">new</span> <span class="title class_">Message</span>(<span class="string">&quot;hello&quot;</span> + finalI), <span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8888</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;client receive message：&quot;</span> + message.getConnect());</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个核心线程<code>10</code>、最大线程<code>100</code>，非核心且空闲线程的最长存活时间为<code>1 min</code>、有界工作队列容量为<code>100</code>、使用默认线程工厂的线程池</p>
+<p>虽然在创建线程上节约了时间，但是依然提升优先，瓶颈在于<code>IO</code>模型是同步阻塞<code>IO</code>，要想有质的提升需要使用别的<code>IO</code>模型，如同步非阻塞<code>IO</code>，多路复用<code>IO</code>，异步<code>IO</code>等。<code>Netty</code>是基于同步非阻塞<code>IO</code>模型的一个网络编程框架，使用非常方便。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/09/SpringBean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -614,120 +840,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/06/Netty%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="chenrj">
-      <meta itemprop="description" content="向大佬学习orz">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenrj的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/06/Netty%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">Netty心跳机制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-06 19:34:09" itemprop="dateCreated datePublished" datetime="2023-05-06T19:34:09+08:00">2023-05-06</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/06/Netty%E9%95%BF%E8%BF%9E%E6%8E%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="chenrj">
-      <meta itemprop="description" content="向大佬学习orz">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenrj的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/06/Netty%E9%95%BF%E8%BF%9E%E6%8E%A5/" class="post-title-link" itemprop="url">Netty长连接</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-06 19:34:02" itemprop="dateCreated datePublished" datetime="2023-05-06T19:34:02+08:00">2023-05-06</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -797,20 +909,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
