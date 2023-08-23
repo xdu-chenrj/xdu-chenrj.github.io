@@ -181,11 +181,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java-IO基础知识.md</title>
-    <url>/2023/05/06/Java-IO%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-md/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>Java中的锁</title>
     <url>/2023/04/18/Java%E4%B8%AD%E7%9A%84%E9%94%81/</url>
     <content><![CDATA[<h3 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h3><h4 id="公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源"><a href="#公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源" class="headerlink" title="公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源"></a>公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源</h4><h4 id="非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源"><a href="#非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源" class="headerlink" title="非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源"></a>非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源</h4><blockquote>
@@ -1627,5 +1622,32 @@
     <title>剑指Offer清单-链表</title>
     <url>/2023/08/13/%E5%89%91%E6%8C%87Offer%E6%B8%85%E5%8D%95-%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>JVM中的StackOverflowError和OutMemaoryError错误</title>
+    <url>/2023/08/22/JVM%E4%B8%AD%E7%9A%84StackOverflowError%E5%92%8COutMemaoryError%E9%94%99%E8%AF%AF/</url>
+    <content><![CDATA[<h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java-IO流</title>
+    <url>/2023/08/23/Java-IO%E6%B5%81/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Java双亲委派机制</title>
+    <url>/2023/08/23/Java%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h3 id="什么是双亲委派"><a href="#什么是双亲委派" class="headerlink" title="什么是双亲委派"></a>什么是双亲委派</h3><h3 id="为什么要有双亲委派，解决的是什么问题，不委派会发生什么？"><a href="#为什么要有双亲委派，解决的是什么问题，不委派会发生什么？" class="headerlink" title="为什么要有双亲委派，解决的是什么问题，不委派会发生什么？"></a>为什么要有双亲委派，解决的是什么问题，不委派会发生什么？</h3><h3 id="父加载器和子加载器之间的关系是继承的吗"><a href="#父加载器和子加载器之间的关系是继承的吗" class="headerlink" title="父加载器和子加载器之间的关系是继承的吗"></a>父加载器和子加载器之间的关系是继承的吗</h3><h3 id="双亲委派的实现机制"><a href="#双亲委派的实现机制" class="headerlink" title="双亲委派的实现机制"></a>双亲委派的实现机制</h3><h3 id="可不可以主动破坏这种双亲委派机制？如何破坏？"><a href="#可不可以主动破坏这种双亲委派机制？如何破坏？" class="headerlink" title="可不可以主动破坏这种双亲委派机制？如何破坏？"></a>可不可以主动破坏这种双亲委派机制？如何破坏？</h3><h3 id="为什么重写loadClass方法可以破坏双亲委派？这个方法和findClass-，defineClass-区别是什么？"><a href="#为什么重写loadClass方法可以破坏双亲委派？这个方法和findClass-，defineClass-区别是什么？" class="headerlink" title="为什么重写loadClass方法可以破坏双亲委派？这个方法和findClass()，defineClass()区别是什么？"></a>为什么重写loadClass方法可以破坏双亲委派？这个方法和findClass()，defineClass()区别是什么？</h3><h3 id="破坏双亲委派的例子"><a href="#破坏双亲委派的例子" class="headerlink" title="破坏双亲委派的例子"></a>破坏双亲委派的例子</h3><h3 id="为什么JNDI，JDBC等需要破坏双亲委派？"><a href="#为什么JNDI，JDBC等需要破坏双亲委派？" class="headerlink" title="为什么JNDI，JDBC等需要破坏双亲委派？"></a>为什么JNDI，JDBC等需要破坏双亲委派？</h3><h3 id="为什么TOMCAT需要破坏双亲委派"><a href="#为什么TOMCAT需要破坏双亲委派" class="headerlink" title="为什么TOMCAT需要破坏双亲委派"></a>为什么TOMCAT需要破坏双亲委派</h3><h3 id="什么是模块化技术？有什么用？"><a href="#什么是模块化技术？有什么用？" class="headerlink" title="什么是模块化技术？有什么用？"></a>什么是模块化技术？有什么用？</h3>]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>双亲委派</tag>
+      </tags>
   </entry>
 </search>
