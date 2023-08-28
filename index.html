@@ -162,6 +162,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/28/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/28/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/" class="post-title-link" itemprop="url">二叉树中的最大路径和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-28 10:08:52 / 修改时间：10:48:33" itemprop="dateCreated datePublished" datetime="2023-08-28T10:08:52+08:00">2023-08-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>二叉树中的 <strong>路径</strong> 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p>
+<p><strong>路径和</strong> 是路径中各节点值的总和。</p>
+<p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx1.jpg" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [1,2,3]</span><br><span class="line">输出：6</span><br><span class="line">解释：最优路径是 2 -&gt; 1 -&gt; 3 ，路径和为 2 + 1 + 3 = 6</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx2.jpg" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [-10,9,20,null,null,15,7]</span><br><span class="line">输出：42</span><br><span class="line">解释：最优路径是 15 -&gt; 20 -&gt; 7 ，路径和为 15 + 20 + 7 = 42</span><br></pre></td></tr></table></figure>
+
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>定义一个<code>dfs</code>函数，表示从当前节点开始，往下搜的最大值;</p>
+<p>对于当前节点<code>node</code>来说，<code>dfs(node-&gt;left) + dfs(node-&gt;right) + node-&gt;value</code>就是以当前节点为中枢的最大路径和;</p>
+<p>对于当前节点<code>node</code>来说，左儿子的最大路径和<code>left = dfs(node-&gt;left)</code>， 右儿子的最大路径和<code>right = dfs(node-&gt;right)</code>，因为左儿子和右儿子的最大路径和有负数的情况，也就是说节点的值全部是负数，这个时候就看情况取舍左右儿子的最大路径和了，或者直接<code>left = max(0, left); right = max(0, right);</code>;</p>
+<p>定义一个变量维护最终答案， 对每个节点求出左儿子的最大路径和右儿子的最大路径和，然后更新最大值。<code>ans = max(ans, left + right + node-&gt;val)</code>，因为有可能全是负节点，那么最大路径和就是负值最小的节点，所以<code>ans</code>的值要定义成一个较小的负数，比如<code>-1e9</code>；</p>
+<p>ps: lc124， 虚假hard，面试手撕样例过了，提交只能通过部分样例，第二天早上重新思考，一遍过，太痛了。</p>
+<p><img src="/home/chenrj/blog/source/_posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/ku.png"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">-1e9</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        left += <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        right += <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">        left = <span class="built_in">max</span>(<span class="number">0</span>, left);</span><br><span class="line">        right = <span class="built_in">max</span>(<span class="number">0</span>, right);</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, left + right + root-&gt;val);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(left, right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/25/Spring-AOP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -242,8 +328,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-08-25 15:50:11" itemprop="dateCreated datePublished" datetime="2023-08-25T15:50:11+08:00">2023-08-25</time>
+              <time title="创建时间：2023-08-25 15:50:11 / 修改时间：16:34:51" itemprop="dateCreated datePublished" datetime="2023-08-25T15:50:11+08:00">2023-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+                </span>
             </span>
 
           
@@ -257,7 +353,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3>
       
     </div>
 
@@ -702,193 +798,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/06/%E5%89%91%E6%8C%87Offer%E6%B8%85%E5%8D%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="chenrj">
-      <meta itemprop="description" content="向大佬学习orz">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenrj的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/06/%E5%89%91%E6%8C%87Offer%E6%B8%85%E5%8D%95-%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">剑指Offer清单-字符串</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-07-06 08:54:49" itemprop="dateCreated datePublished" datetime="2023-07-06T08:54:49+08:00">2023-07-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-13 17:04:47" itemprop="dateModified" datetime="2023-08-13T17:04:47+08:00">2023-08-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%91%E6%8C%87Offer/" itemprop="url" rel="index"><span itemprop="name">剑指Offer</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="剑指-Offer-05-替换空格"><a href="#剑指-Offer-05-替换空格" class="headerlink" title="剑指 Offer 05. 替换空格"></a>剑指 Offer 05. 替换空格</h3><h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><p>请实现一个函数，把字符串 <code>s</code> 中的每个空格替换成”%20”。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;We are happy.&quot;</span><br><span class="line">输出：&quot;We%20are%20happy.&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>限制：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 &lt;= s 的长度 &lt;= 10000</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">replaceSpace</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        string res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> x : s) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x == <span class="string">&#x27; &#x27;</span>) res += <span class="string">&quot;%20&quot;</span>;</span><br><span class="line">            <span class="keyword">else</span> res += x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="剑指-Offer-58-II-左旋转字符串"><a href="#剑指-Offer-58-II-左旋转字符串" class="headerlink" title="剑指 Offer 58 - II. 左旋转字符串"></a>剑指 Offer 58 - II. 左旋转字符串</h3><h4 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h4><p>字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串”abcdefg”和数字2，该函数将返回左旋转两位得到的结果”cdefgab”。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;abcdefg&quot;, k = 2</span><br><span class="line">输出: &quot;cdefgab&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;lrloseumgh&quot;, k = 6</span><br><span class="line">输出: &quot;umghlrlose&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>限制：</strong></p>
-<ul>
-<li><code>1 &lt;= k &lt; s.length &lt;= 10000</code></li>
-</ul>
-<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseLeftWords</span><span class="params">(string s, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        string res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = n; i &lt; s.<span class="built_in">size</span>(); i++) res += s[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) res += s[i];</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="剑指-Offer-20-表示数值的字符串"><a href="#剑指-Offer-20-表示数值的字符串" class="headerlink" title="剑指 Offer 20. 表示数值的字符串"></a>剑指 Offer 20. 表示数值的字符串</h3><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>请实现一个函数用来判断字符串是否表示<strong>数值</strong>（包括整数和小数）。</p>
-<p><strong>数值</strong>（按顺序）可以分成以下几个部分：</p>
-<ol>
-<li>若干空格</li>
-<li>一个 <strong>小数</strong> 或者 <strong>整数</strong></li>
-<li>（可选）一个 <code>&#39;e&#39;</code> 或 <code>&#39;E&#39;</code> ，后面跟着一个 <strong>整数</strong></li>
-<li>若干空格</li>
-</ol>
-<p><strong>小数</strong>（按顺序）可以分成以下几个部分：</p>
-<ol>
-<li>（可选）一个符号字符（<code>&#39;+&#39;</code> 或 <code>&#39;-&#39;</code>）</li>
-<li>下述格式之一：<ol>
-<li>至少一位数字，后面跟着一个点 <code>&#39;.&#39;</code></li>
-<li>至少一位数字，后面跟着一个点 <code>&#39;.&#39;</code> ，后面再跟着至少一位数字</li>
-<li>一个点 <code>&#39;.&#39;</code> ，后面跟着至少一位数字</li>
-</ol>
-</li>
-</ol>
-<p><strong>整数</strong>（按顺序）可以分成以下几个部分：</p>
-<ol>
-<li>（可选）一个符号字符（<code>&#39;+&#39;</code> 或 <code>&#39;-&#39;</code>）</li>
-<li>至少一位数字</li>
-</ol>
-<p>部分<strong>数值</strong>列举如下：</p>
-<ul>
-<li><code>[&quot;+100&quot;, &quot;5e2&quot;, &quot;-123&quot;, &quot;3.1416&quot;, &quot;-1E-16&quot;, &quot;0123&quot;]</code></li>
-</ul>
-<p>部分<strong>非数值</strong>列举如下：</p>
-<ul>
-<li><code>[&quot;12e&quot;, &quot;1a3.14&quot;, &quot;1.2.3&quot;, &quot;+-5&quot;, &quot;12e+5.4&quot;]</code></li>
-</ul>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;0&quot;</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;e&quot;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 3：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;.&quot;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 4：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;    .1  &quot;</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
-
-<p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= s.length &lt;= 20</code></li>
-<li><code>s</code> 仅含英文字母（大写和小写），数字（<code>0-9</code>），加号 <code>&#39;+&#39;</code> ，减号 <code>&#39;-&#39;</code> ，空格 <code>&#39; &#39;</code> 或者点 <code>&#39;.&#39;</code></li>
-</ul>
-<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>主要是考虑各种情况，直接判断是不是合法优点困难，可以考虑是否非法，去掉所有非法剩下的就是合法情况。</p>
-<p>基本几种情况</p>
-<p> 有e：</p>
-<p>(符号-可有可无)(小数&#x2F;整数)(e)(符号-可有可无)(整数)</p>
-<p>小数只能有一个点，比如.1也是合法的</p>
-<p>没e:</p>
-<p>(符号-可有可无)(小数&#x2F;整数)</p>
-<p>详情查看代码上的去除非法情况的注释</p>
-<p>ps: 数据加强了，之前写的代码通过不了了，又增强了一下自己的代码~</p>
-<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isNumber</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>, j = s.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(s[i] == <span class="string">&#x27; &#x27;</span> &amp;&amp; i &lt; s.<span class="built_in">size</span>()) i += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; s[j] == <span class="string">&#x27; &#x27;</span> &amp;&amp; j &gt;= <span class="number">0</span>) j -= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; j) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        s = s.<span class="built_in">substr</span>(i, j - i + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(s[<span class="number">0</span>] == <span class="string">&#x27;+&#x27;</span> || s[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span>) s = s.<span class="built_in">substr</span>(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// .</span></span><br><span class="line">        <span class="keyword">if</span>(s[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span> &amp;&amp; s.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> dot = <span class="number">0</span>, e = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i += <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; s[i] &lt;= <span class="string">&#x27;9&#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;e&#x27;</span> || s[i] == <span class="string">&#x27;E&#x27;</span>) &#123;</span><br><span class="line">                e += <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// xxe</span></span><br><span class="line">                <span class="comment">// exx</span></span><br><span class="line">                <span class="comment">// xxexxexx</span></span><br><span class="line">                <span class="comment">// .e</span></span><br><span class="line">                <span class="comment">// xe.</span></span><br><span class="line">                <span class="keyword">if</span>(i + <span class="number">1</span> == s.<span class="built_in">size</span>() || !i || e &gt; <span class="number">1</span> || i == <span class="number">1</span> &amp;&amp; s[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span> || i + <span class="number">2</span> == s.<span class="built_in">size</span>() &amp;&amp; s[i + <span class="number">1</span>] == <span class="string">&#x27;.&#x27;</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(s[i + <span class="number">1</span>] == <span class="string">&#x27;+&#x27;</span> || s[i + <span class="number">1</span>] == <span class="string">&#x27;-&#x27;</span>) &#123;</span><br><span class="line">                    <span class="comment">// xe+</span></span><br><span class="line">                    <span class="keyword">if</span>(i + <span class="number">2</span> == s.<span class="built_in">size</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    i += <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                dot += <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// xx.x.x</span></span><br><span class="line">                <span class="comment">// &quot;6e6.5&quot;</span></span><br><span class="line">                <span class="keyword">if</span>(dot &gt; <span class="number">1</span> || dot &amp;&amp; e) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="剑指-Offer-67-把字符串转换成整数"><a href="#剑指-Offer-67-把字符串转换成整数" class="headerlink" title="剑指 Offer 67. 把字符串转换成整数"></a>剑指 Offer 67. 把字符串转换成整数</h3><h4 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h4><p>写一个函数 StrToInt，实现把字符串转换成整数这个功能。不能使用 atoi 或者其他类似的库函数。</p>
-<p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
-<p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
-<p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
-<p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p>
-<p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p>
-<p><strong>说明：</strong></p>
-<p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231, 231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;42&quot;</span><br><span class="line">输出: 42</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;   -42&quot;</span><br><span class="line">输出: -42</span><br><span class="line">解释: 第一个非空白字符为 &#x27;-&#x27;, 它是一个负号。</span><br><span class="line">     我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 3:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;4193 with words&quot;</span><br><span class="line">输出: 4193</span><br><span class="line">解释: 转换截止于数字 &#x27;3&#x27; ，因为它的下一个字符不为数字。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 4:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;words and 987&quot;</span><br><span class="line">输出: 0</span><br><span class="line">解释: 第一个非空字符是 &#x27;w&#x27;, 但它不是数字或正、负号。</span><br><span class="line">     因此无法执行有效的转换。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 5:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;-91283472332&quot;</span><br><span class="line">输出: -2147483648</span><br><span class="line">解释: 数字 &quot;-91283472332&quot; 超过 32 位有符号整数范围。 </span><br><span class="line">     因此返回 INT_MIN (−231) 。</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">strToInt</span><span class="params">(string str)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> index = <span class="number">0</span>, n = str.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; n &amp;&amp; str[index] == <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> symbol = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (str[index] == <span class="string">&#x27;-&#x27;</span> || str[index] == <span class="string">&#x27;+&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (str[index] == <span class="string">&#x27;-&#x27;</span>) symbol = <span class="number">-1</span>;</span><br><span class="line">            index += <span class="number">1</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = index; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (str[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; str[i] &lt;= <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">                res = res * <span class="number">10</span> + (str[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">                <span class="keyword">if</span> (res &gt; INT_MAX) <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span> (res * symbol &gt; INT_MAX) res = INT_MAX;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (res * symbol &lt; INT_MIN) res = INT_MIN;</span><br><span class="line">        <span class="keyword">else</span> res = res * symbol;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -954,7 +867,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -967,7 +880,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -1654,7 +1654,13 @@
   <entry>
     <title>JVM内存模型</title>
     <url>/2023/08/25/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3>]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>JVM内存模型</tag>
+      </tags>
   </entry>
   <entry>
     <title>JVM内存结构</title>
@@ -1665,5 +1671,35 @@
     <title>Spring-AOP</title>
     <url>/2023/08/25/Spring-AOP/</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>二叉树中的最大路径和</title>
+    <url>/2023/08/28/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
+    <content><![CDATA[<h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>二叉树中的 <strong>路径</strong> 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p>
+<p><strong>路径和</strong> 是路径中各节点值的总和。</p>
+<p>给你一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx1.jpg" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：root = [1,2,3]</span><br><span class="line">输出：6</span><br><span class="line">解释：最优路径是 2 -&gt; 1 -&gt; 3 ，路径和为 2 + 1 + 3 = 6</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx2.jpg" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：root = [-10,9,20,null,null,15,7]</span><br><span class="line">输出：42</span><br><span class="line">解释：最优路径是 15 -&gt; 20 -&gt; 7 ，路径和为 15 + 20 + 7 = 42</span><br></pre></td></tr></table></figure>
+
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>定义一个<code>dfs</code>函数，表示从当前节点开始，往下搜的最大值;</p>
+<p>对于当前节点<code>node</code>来说，<code>dfs(node-&gt;left) + dfs(node-&gt;right) + node-&gt;value</code>就是以当前节点为中枢的最大路径和;</p>
+<p>对于当前节点<code>node</code>来说，左儿子的最大路径和<code>left = dfs(node-&gt;left)</code>， 右儿子的最大路径和<code>right = dfs(node-&gt;right)</code>，因为左儿子和右儿子的最大路径和有负数的情况，也就是说节点的值全部是负数，这个时候就看情况取舍左右儿子的最大路径和了，或者直接<code>left = max(0, left); right = max(0, right);</code>;</p>
+<p>定义一个变量维护最终答案， 对每个节点求出左儿子的最大路径和右儿子的最大路径和，然后更新最大值。<code>ans = max(ans, left + right + node-&gt;val)</code>，因为有可能全是负节点，那么最大路径和就是负值最小的节点，所以<code>ans</code>的值要定义成一个较小的负数，比如<code>-1e9</code>；</p>
+<p>ps: lc124， 虚假hard，面试手撕样例过了，提交只能通过部分样例，第二天早上重新思考，一遍过，太痛了。</p>
+<p><img src="/home/chenrj/blog/source/_posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/ku.png"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">-1e9</span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">        left += <span class="built_in">dfs</span>(root-&gt;left);</span><br><span class="line">        right += <span class="built_in">dfs</span>(root-&gt;right);</span><br><span class="line">        left = <span class="built_in">max</span>(<span class="number">0</span>, left);</span><br><span class="line">        right = <span class="built_in">max</span>(<span class="number">0</span>, right);</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, left + right + root-&gt;val);</span><br><span class="line">        <span class="keyword">return</span> root-&gt;val + <span class="built_in">max</span>(left, right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">dfs</span>(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
   </entry>
 </search>

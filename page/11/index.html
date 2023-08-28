@@ -162,6 +162,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/18/Java%E4%B8%AD%E7%9A%84%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrj">
+      <meta itemprop="description" content="向大佬学习orz">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenrj的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/18/Java%E4%B8%AD%E7%9A%84%E9%94%81/" class="post-title-link" itemprop="url">Java中的锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-04-18 21:39:43" itemprop="dateCreated datePublished" datetime="2023-04-18T21:39:43+08:00">2023-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-19 00:21:34" itemprop="dateModified" datetime="2023-04-19T00:21:34+08:00">2023-04-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h3><h4 id="公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源"><a href="#公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源" class="headerlink" title="公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源"></a>公平锁：线程A获取了锁资源之后，线程B没有拿到，线程B去排队，线程C来了，锁被A持有，同时线程B在排队，线程C直接排到线程B后面，等待线程B拿到锁资源或者B取消后，才尝试竞争锁资源</h4><h4 id="非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源"><a href="#非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源" class="headerlink" title="非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源"></a>非公平锁：线程A获取到了锁资源，线程B没有拿到，线程B去排队，线程C来了，先尝试竞争一下锁资源</h4><blockquote>
+<h4 id="拿到锁资源：插队成功"><a href="#拿到锁资源：插队成功" class="headerlink" title="拿到锁资源：插队成功"></a>拿到锁资源：插队成功</h4><h4 id="没有拿到锁资源：依然要排到线程B后面，等线程B拿到锁资源或者取消，才尝试去竞争锁资源"><a href="#没有拿到锁资源：依然要排到线程B后面，等线程B拿到锁资源或者取消，才尝试去竞争锁资源" class="headerlink" title="没有拿到锁资源：依然要排到线程B后面，等线程B拿到锁资源或者取消，才尝试去竞争锁资源"></a>没有拿到锁资源：依然要排到线程B后面，等线程B拿到锁资源或者取消，才尝试去竞争锁资源</h4></blockquote>
+<blockquote>
+<p>Java提供的synchronized只能是非公平锁</p>
+<p>Java提供的ReentrantLock、ReentrantReadWriteLock可以实现公平锁和非公平锁</p>
+</blockquote>
+<h3 id="可重入锁与不可重入锁"><a href="#可重入锁与不可重入锁" class="headerlink" title="可重入锁与不可重入锁"></a>可重入锁与不可重入锁</h3><h4 id="可重入：当前线程获取A锁之后，在获取之后尝试再次获取A锁是可以直接拿到的"><a href="#可重入：当前线程获取A锁之后，在获取之后尝试再次获取A锁是可以直接拿到的" class="headerlink" title="可重入：当前线程获取A锁之后，在获取之后尝试再次获取A锁是可以直接拿到的"></a>可重入：当前线程获取A锁之后，在获取之后尝试再次获取A锁是可以直接拿到的</h4><h4 id="不可重入：当前线程获取A锁之后，尝试再次获取A锁是无法获取到的。"><a href="#不可重入：当前线程获取A锁之后，尝试再次获取A锁是无法获取到的。" class="headerlink" title="不可重入：当前线程获取A锁之后，尝试再次获取A锁是无法获取到的。"></a>不可重入：当前线程获取A锁之后，尝试再次获取A锁是无法获取到的。</h4><blockquote>
+<p>Java中的synchronized，ReentrantLock，ReentrantReadWriteLock都是可重入式锁</p>
+</blockquote>
+<h3 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h3><h4 id="悲观锁：获取不到锁资源的时候会将当前线程挂起，线程挂起会涉及到用户态和内核态之间的切换，这种切换是非常消耗资源的。"><a href="#悲观锁：获取不到锁资源的时候会将当前线程挂起，线程挂起会涉及到用户态和内核态之间的切换，这种切换是非常消耗资源的。" class="headerlink" title="悲观锁：获取不到锁资源的时候会将当前线程挂起，线程挂起会涉及到用户态和内核态之间的切换，这种切换是非常消耗资源的。"></a>悲观锁：获取不到锁资源的时候会将当前线程挂起，线程挂起会涉及到用户态和内核态之间的切换，这种切换是非常消耗资源的。</h4><h4 id="线程切换引起内核态切换的原因？"><a href="#线程切换引起内核态切换的原因？" class="headerlink" title="线程切换引起内核态切换的原因？"></a>线程切换引起内核态切换的原因？</h4><p>当一个线程需要访问内核资源时，需要通过系统调用进入内核态来访问内核资源，比如IO操作。如果此时线程被挂起，会从内核态切回用户态，当挂起线程被重新唤醒，它将再次进入内核态。</p>
+<blockquote>
+<h4 id="用户态和内核态转换需要消耗的资源？"><a href="#用户态和内核态转换需要消耗的资源？" class="headerlink" title="用户态和内核态转换需要消耗的资源？"></a>用户态和内核态转换需要消耗的资源？</h4><p>1、CPU时间：在用户态和内核态进行切换时，CPU需要执行额外的指令，包括保存和恢复现场，这些指令会占用CPU时间，导致性能下降</p>
+<p>2、上下文切换开销：当操作系统在不同的线程进行切换时，需要上下文切换，这会涉及到保存当前线程的上下文，然后加载新线程的上下文。</p>
+</blockquote>
+<h4 id="乐观锁：获取不到锁资源，可再次尝试让CPU调度，重新获取锁资源"><a href="#乐观锁：获取不到锁资源，可再次尝试让CPU调度，重新获取锁资源" class="headerlink" title="乐观锁：获取不到锁资源，可再次尝试让CPU调度，重新获取锁资源"></a>乐观锁：获取不到锁资源，可再次尝试让CPU调度，重新获取锁资源</h4><blockquote>
+<p>Java提供的CAS操作就是一种乐观锁的一种实现方式 </p>
+<p>Atomic原子类中也是基于CAS乐观锁来实现的</p>
+</blockquote>
+<h3 id="互斥锁与共享锁"><a href="#互斥锁与共享锁" class="headerlink" title="互斥锁与共享锁"></a>互斥锁与共享锁</h3><h4 id="互斥锁：同一个时间，只会有一个线程持有当前互斥锁"><a href="#互斥锁：同一个时间，只会有一个线程持有当前互斥锁" class="headerlink" title="互斥锁：同一个时间，只会有一个线程持有当前互斥锁"></a>互斥锁：同一个时间，只会有一个线程持有当前互斥锁</h4><h4 id="共享锁：同一个时间，当前共享锁可以被多个线程同时持有"><a href="#共享锁：同一个时间，当前共享锁可以被多个线程同时持有" class="headerlink" title="共享锁：同一个时间，当前共享锁可以被多个线程同时持有"></a>共享锁：同一个时间，当前共享锁可以被多个线程同时持有</h4><blockquote>
+<p>共享锁一般配置读写锁来实现的，读写锁互斥，读读锁共享</p>
+</blockquote>
+<blockquote>
+<p>Java提供的sychnronized、ReentrantLock是互斥锁</p>
+<p>Java提供的ReentrantReadWriteLock有互斥锁也有共享锁</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/06/HashMap%E8%AF%A6%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1247,80 +1336,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/14/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="chenrj">
-      <meta itemprop="description" content="向大佬学习orz">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenrj的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/14/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-09-14 15:21:30" itemprop="dateCreated datePublished" datetime="2022-09-14T15:21:30+08:00">2022-09-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1386,7 +1405,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1399,7 +1418,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
